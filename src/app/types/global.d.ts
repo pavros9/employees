@@ -1,7 +1,7 @@
 declare module '*.module.scss' {
-    type IClassNames = Record<string, string>
-    const classNames: IClassNames
-    export = classNames
+    type IClassNames = Record<string, string>;
+    const classNames: IClassNames;
+    export = classNames;
 }
 
 declare module '*.png';
@@ -10,14 +10,14 @@ declare module '*.jpeg';
 declare module '*.webp';
 
 declare module '*.svg' {
-    import type React from 'react'
-    const SVG: React.VFC<React.SVGProps<SVGSVGElement>>
-    export default SVG
+    import type React from 'react';
+    const SVG: React.VFC<React.SVGProps<SVGSVGElement>>;
+    export default SVG;
 }
 
-declare const IS_DEV: boolean
-declare const API: string
+declare const IS_DEV: boolean;
+declare const API: string;
 
 type DeepPartial<T> = {
     [P in keyof T]?: DeepPartial<T[P]>;
-}
+};

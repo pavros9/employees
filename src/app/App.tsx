@@ -1,12 +1,11 @@
-import './styles/index.scss'
+import './styles/index.scss';
 
-const App = (): any => {
-
+const App = () => {
     return (
         <>
-            <h3 className='title'>Work!!!</h3>
+            <h3 className="title">Work!!!</h3>
         </>
-    )
-}
+    );
+};
 
-export default App
+export default App;

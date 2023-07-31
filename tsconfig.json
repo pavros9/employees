@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-    "outDir": "./dist/",
+        "outDir": "./dist/",
         "noImplicitAny": true,
         "module": "ESNext",
         "target": "es5",
@@ -10,18 +10,15 @@
         "baseUrl": ".",
         "strict": true,
         "paths": {
-        "*": ["./src/*"]
-    },
-    "esModuleInterop": true,
+            "*": ["./src/*"]
+        },
+        "esModuleInterop": true,
         "allowSyntheticDefaultImports": true
-},
+    },
     "ts-node": {
-    "compilerOptions": {
-        "module": "CommonJS"
-    }
-},
-    "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-]
+        "compilerOptions": {
+            "module": "CommonJS"
+        }
+    },
+    "include": ["./src/**/*.ts", "./src/**/*.tsx"]
 }
