@@ -33,8 +33,10 @@ module.exports = {
     plugins: ['@typescript-eslint', 'react'],
     rules: {
         'react/react-in-jsx-scope': 'off',
+        'react/display-name': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-unused-vars': 'warn',
+
         'react/jsx-max-props-per-line': ['error', { maximum: 2 }],
     },
 };

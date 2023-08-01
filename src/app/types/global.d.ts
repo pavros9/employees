@@ -21,3 +21,9 @@ declare const API: string;
 type DeepPartial<T> = {
     [P in keyof T]?: DeepPartial<T[P]>;
 };
+
+declare global {
+    interface ObjectConstructor {
+        values<T>(obj: { [key: string]: T }): T[];
+    }
+}

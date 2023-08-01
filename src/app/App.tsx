@@ -1,9 +1,10 @@
 import './styles/index.scss';
+import { AppRouter } from 'app/providers/router';
 
 const App = () => {
     return (
         <>
-            <h3 className="title">Work!!!</h3>
+            <AppRouter />
         </>
     );
 };
