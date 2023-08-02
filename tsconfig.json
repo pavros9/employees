@@ -10,7 +10,8 @@
         "baseUrl": ".",
         "strict": true,
         "paths": {
-            "*": ["./src/*"]
+            "*": ["./src/*"],
+            "@widgets/*": ["./src/widgets/*"]
         },
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true
