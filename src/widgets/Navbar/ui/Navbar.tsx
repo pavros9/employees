@@ -61,8 +61,10 @@ export const Navbar = () => {
                                 <NavLink
                                     to="/"
                                     className={({ isActive }) =>
-                                        `bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium ${
-                                            isActive ? 'text-orange-400' : ''
+                                        `text-white rounded-md px-3 py-2 text-sm font-medium ${
+                                            isActive
+                                                ? 'text-orange-400 bg-gray-900'
+                                                : ''
                                         }`
                                     }
                                 >
@@ -71,8 +73,10 @@ export const Navbar = () => {
                                 <NavLink
                                     to="/settings"
                                     className={({ isActive }) =>
-                                        `bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium ${
-                                            isActive ? 'text-orange-400' : ''
+                                        `text-white rounded-md px-3 py-2 text-sm font-medium ${
+                                            isActive
+                                                ? 'text-orange-400 bg-gray-900'
+                                                : ''
                                         }`
                                     }
                                 >
@@ -96,8 +100,8 @@ export const Navbar = () => {
                     <NavLink
                         to="/"
                         className={({ isActive }) =>
-                            `bg-gray-900 text-white block rounded-md px-3 py-2 text-sm font-medium ${
-                                isActive ? 'text-orange-400' : ''
+                            `text-white block rounded-md px-3 py-2 text-sm font-medium ${
+                                isActive ? 'text-orange-400 bg-gray-900' : ''
                             }`
                         }
                     >
@@ -106,8 +110,8 @@ export const Navbar = () => {
                     <NavLink
                         to="/settings"
                         className={({ isActive }) =>
-                            `bg-gray-900 text-white block rounded-md px-3 py-2 text-sm font-medium ${
-                                isActive ? 'text-orange-400' : ''
+                            `text-white block rounded-md px-3 py-2 text-sm font-medium ${
+                                isActive ? 'text-orange-400 bg-gray-900' : ''
                             }`
                         }
                     >
