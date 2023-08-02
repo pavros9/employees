@@ -16,8 +16,8 @@ export function buildPlugins (options: BuildOptions): webpack.WebpackPluginInsta
             chunkFilename: 'css/[name].[contenthash:8].css'
         }),
         new webpack.DefinePlugin({
-            IS_DEV: JSON.stringify(isDev),
-            API: JSON.stringify(apiUrl)
+            __IS_DEV__: JSON.stringify(isDev),
+            __API__: JSON.stringify(apiUrl)
         }),
         new BundleAnalyzerPlugin({
             analyzerMode: analyze ? 'server' : 'disabled'

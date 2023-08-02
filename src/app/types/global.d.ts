@@ -15,8 +15,8 @@ declare module '*.svg' {
     export default SVG;
 }
 
-declare const IS_DEV: boolean;
-declare const API: string;
+declare const __IS_DEV__: boolean;
+declare const __API__: string;
 
 type DeepPartial<T> = {
     [P in keyof T]?: DeepPartial<T[P]>;
@@ -25,5 +25,6 @@ type DeepPartial<T> = {
 declare global {
     interface ObjectConstructor {
         values<T>(obj: { [key: string]: T }): T[];
+        entries<T>(o: { [key: string]: T }): [string, T][];
     }
 }
