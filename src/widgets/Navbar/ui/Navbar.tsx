@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
+import { NavLink } from 'react-router-dom';
 
 export const Navbar = () => {
     const [openMenu, setOpenMenu] = useState(true);
@@ -53,22 +54,30 @@ export const Navbar = () => {
                             </svg>
                         </button>
                     </div>
+
                     <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex space-x-4">
-                                <a
-                                    href="#"
-                                    className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                                <NavLink
+                                    to="/"
+                                    className={({ isActive }) =>
+                                        `bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium ${
+                                            isActive ? 'text-orange-400' : ''
+                                        }`
+                                    }
                                 >
                                     Работники
-                                </a>
-                                <a
-                                    href="#"
-                                    className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-                                    aria-current="page"
+                                </NavLink>
+                                <NavLink
+                                    to="/settings"
+                                    className={({ isActive }) =>
+                                        `bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium ${
+                                            isActive ? 'text-orange-400' : ''
+                                        }`
+                                    }
                                 >
                                     Настройка
-                                </a>
+                                </NavLink>
                             </div>
                         </div>
                     </div>
@@ -84,20 +93,26 @@ export const Navbar = () => {
                 id="mobile-menu"
             >
                 <div className="space-y-1 px-2 pb-3 pt-2">
-                    <a
-                        href="#"
-                        className="bg-gray-900 text-white block  rounded-md px-3 py-2 text-sm font-medium"
-                        aria-current="page"
+                    <NavLink
+                        to="/"
+                        className={({ isActive }) =>
+                            `bg-gray-900 text-white block rounded-md px-3 py-2 text-sm font-medium ${
+                                isActive ? 'text-orange-400' : ''
+                            }`
+                        }
                     >
                         Работники
-                    </a>
-                    <a
-                        href="#"
-                        className="bg-gray-900 text-white block  rounded-md px-3 py-2 text-sm font-medium"
-                        aria-current="page"
+                    </NavLink>
+                    <NavLink
+                        to="/settings"
+                        className={({ isActive }) =>
+                            `bg-gray-900 text-white block rounded-md px-3 py-2 text-sm font-medium ${
+                                isActive ? 'text-orange-400' : ''
+                            }`
+                        }
                     >
                         Настройка
-                    </a>
+                    </NavLink>
                 </div>
             </div>
         </nav>
