@@ -61,22 +61,34 @@ export const Navbar = () => {
                                 <NavLink
                                     to="/"
                                     className={({ isActive }) =>
-                                        `text-white rounded-md px-3 py-2 text-sm font-medium ${
+                                        `rounded-md px-3 py-2 text-sm font-medium ${
                                             isActive
                                                 ? 'text-orange-400 bg-gray-900'
-                                                : ''
+                                                : 'text-white'
                                         }`
                                     }
                                 >
                                     Работники
                                 </NavLink>
                                 <NavLink
-                                    to="/settings"
+                                    to="/form"
                                     className={({ isActive }) =>
-                                        `text-white rounded-md px-3 py-2 text-sm font-medium ${
+                                        `rounded-md px-3 py-2 text-sm font-medium ${
                                             isActive
                                                 ? 'text-orange-400 bg-gray-900'
-                                                : ''
+                                                : 'text-white'
+                                        }`
+                                    }
+                                >
+                                    Форма
+                                </NavLink>
+                                <NavLink
+                                    to="/settings"
+                                    className={({ isActive }) =>
+                                        `rounded-md px-3 py-2 text-sm font-medium ${
+                                            isActive
+                                                ? 'text-orange-400 bg-gray-900'
+                                                : 'text-white'
                                         }`
                                     }
                                 >
@@ -100,18 +112,34 @@ export const Navbar = () => {
                     <NavLink
                         to="/"
                         className={({ isActive }) =>
-                            `text-white block rounded-md px-3 py-2 text-sm font-medium ${
-                                isActive ? 'text-orange-400 bg-gray-900' : ''
+                            `block rounded-md px-3 py-2 text-sm font-medium ${
+                                isActive
+                                    ? 'text-orange-400 bg-gray-900'
+                                    : 'text-white'
                             }`
                         }
                     >
                         Работники
                     </NavLink>
                     <NavLink
+                        to="/form"
+                        className={({ isActive }) =>
+                            `block rounded-md px-3 py-2 text-sm font-medium ${
+                                isActive
+                                    ? 'text-orange-400 bg-gray-900'
+                                    : 'text-white'
+                            }`
+                        }
+                    >
+                        Форма
+                    </NavLink>
+                    <NavLink
                         to="/settings"
                         className={({ isActive }) =>
-                            `text-white block rounded-md px-3 py-2 text-sm font-medium ${
-                                isActive ? 'text-orange-400 bg-gray-900' : ''
+                            `block rounded-md px-3 py-2 text-sm font-medium ${
+                                isActive
+                                    ? 'text-orange-400 bg-gray-900'
+                                    : 'text-white'
                             }`
                         }
                     >
