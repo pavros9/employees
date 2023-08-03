@@ -1,6 +1,11 @@
 import { AxiosInstance } from 'axios';
+import { EmployeeSchema } from 'entities/Employee';
+import { AddEmployeeFormSchema } from 'features/addEmployeeForm/model/types/addEmployeeForm';
 
-export interface StateSchema {}
+export interface StateSchema {
+    employee: EmployeeSchema;
+    addEmployeeForm: AddEmployeeFormSchema;
+}
 
 export type StateSchemaKey = keyof StateSchema;
 

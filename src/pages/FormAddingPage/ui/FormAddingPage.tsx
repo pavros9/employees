@@ -1,7 +1,12 @@
+import { AddEmployeeForm } from 'features/addEmployeeForm';
+
 const FormAddingPage = () => {
     return (
-        <div>
-            <h3 className="text-3xl text-center mb-5 font-bold">Form</h3>
+        <div className="pt-11">
+            <h3 className="text-3xl text-center mb-11 font-bold">
+                Добавление работника
+            </h3>
+            <AddEmployeeForm />
         </div>
     );
 };

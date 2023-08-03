@@ -11,7 +11,6 @@
         "strict": true,
         "paths": {
             "*": ["./src/*"],
-            "@widgets/*": ["./src/widgets/*"]
         },
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true
