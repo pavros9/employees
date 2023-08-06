@@ -1,0 +1,12 @@
+{
+    "pages": [
+        {
+            "id": 1,
+            "title": "First page"
+        },
+        {
+            "id": 2,
+            "title": "Second page"
+        }
+    ]
+}
