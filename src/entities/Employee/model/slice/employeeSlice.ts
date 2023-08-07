@@ -1,3 +1,4 @@
+import { fetchEmployees } from './../services/fetchEmployees';
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Employee } from '../types/employee';
@@ -6,7 +7,7 @@ import { EmployeeSchema } from '../types/employeeSchema';
 const initialState: EmployeeSchema = {
     isLoading: false,
     error: undefined,
-    data: [],
+    data: undefined,
 };
 
 export const employeeSlice = createSlice({
@@ -19,6 +20,17 @@ export const employeeSlice = createSlice({
         ) => {
             state.data?.push(payload);
         },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchEmployees.pending, (state) => {})
+            .addCase(
+                fetchEmployees.fulfilled,
+                (state, action: PayloadAction<Employee[]>) => {
+                    state.data = action.payload;
+                },
+            )
+            .addCase(fetchEmployees.rejected, (state, action) => {});
     },
 });
 
