@@ -3,11 +3,13 @@ import { StateSchema, ThunkExtraArg } from './StateSchema';
 import { $api } from 'shared/api/api';
 import { employeeReducer } from 'entities/Employee';
 import { addEmployeeFormReducer } from 'features/addEmployeeForm';
+import { employeeCardReducer } from 'features/editableEmployeeCard';
 
 export function createReduxStore(initialState?: StateSchema) {
     const rootReducers: ReducersMapObject<StateSchema> = {
         employee: employeeReducer,
         addEmployeeForm: addEmployeeFormReducer,
+        editableEmployeeCard: employeeCardReducer,
     };
 
     const extraArg: ThunkExtraArg = {

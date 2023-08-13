@@ -8,7 +8,7 @@ export function buildDevServer (options: BuildOptions): DevServerConfiguration {
         historyApiFallback: true,
         hot: true,
         proxy: {
-            '/': 'http://localhost:8086',
+            '/api': 'http://localhost:8086',
         },
     }
 }

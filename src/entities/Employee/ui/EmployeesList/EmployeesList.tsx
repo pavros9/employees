@@ -1,4 +1,7 @@
 import { Employee } from 'entities/Employee';
+import { EmployeeJobTitleTranslation } from 'entities/Employee/model/const/employeeConts';
+import { JobTitle } from '../../model/types/employee';
+import { useNavigate } from 'react-router-dom';
 
 interface EmployeesListProps {
     employees?: Employee[];
@@ -6,9 +9,11 @@ interface EmployeesListProps {
 
 export const EmployeesList = (props: EmployeesListProps) => {
     const { employees } = props;
+    const navigate = useNavigate();
 
     const onChooseEnmployee = (emp: Employee) => {
         console.log(emp);
+        navigate('/employee/' + String(emp.id));
     };
 
     return (
@@ -44,7 +49,11 @@ export const EmployeesList = (props: EmployeesListProps) => {
                                             </span>
                                         </td>
                                         <td className="py-3 px-6 text-left">
-                                            {emp.role}
+                                            {
+                                                EmployeeJobTitleTranslation[
+                                                    emp.role as JobTitle
+                                                ]
+                                            }
                                         </td>
                                         <td className="py-3 px-6 text-center">
                                             {emp.phone}

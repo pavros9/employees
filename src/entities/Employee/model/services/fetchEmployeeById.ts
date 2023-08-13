@@ -2,15 +2,18 @@ import { Employee } from './../types/employee';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider';
 
-export const fetchEmployees = createAsyncThunk<
-    Employee[],
-    undefined,
+export const fetchEmployeeById = createAsyncThunk<
+    Employee,
+    string | undefined,
     ThunkConfig<string>
->('employees/fetchEmployees', async (_, thunkApi) => {
+>('employee/fetchEmployeeById', async (employeeId, thunkApi) => {
     const { extra, rejectWithValue } = thunkApi;
 
     try {
-        const response = await extra.api.get<Employee[]>(`/api/employees`, {});
+        const response = await extra.api.get<Employee>(
+            `/api/employees/${employeeId}`,
+            {},
+        );
 
         if (!response.data) {
             throw new Error();
