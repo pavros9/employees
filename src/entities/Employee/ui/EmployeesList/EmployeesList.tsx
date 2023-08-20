@@ -45,7 +45,7 @@ export const EmployeesList = (props: EmployeesListProps) => {
                                     >
                                         <td className="py-3 px-6 text-left whitespace-nowrap">
                                             <span className="font-medium">
-                                                {emp.name}
+                                                {emp.firstName}
                                             </span>
                                         </td>
                                         <td className="py-3 px-6 text-left">

@@ -1,4 +1,5 @@
 import {
+    Employee,
     EmployeeJobTitle,
     EmployeeJobTitleTranslation,
 } from 'entities/Employee';
@@ -14,6 +15,10 @@ import InputMask from 'react-input-mask';
 
 import ru from 'date-fns/locale/ru';
 import { updateEmployee } from '../model/services/updateEmployee';
+import { getIsLoading } from '../model/selectors/getIsLoading';
+import { useParams } from 'react-router-dom';
+import { fetchEmployeeById } from 'entities/Employee';
+import { addEmployee } from '../model/services/addEmployee';
 registerLocale('ru', ru);
 
 const RoleSelectOptions = [
@@ -32,38 +37,41 @@ const RoleSelectOptions = [
 ];
 
 export const EditableEmployeeCard = () => {
-    const employee = useSelector(getEmployeeData);
+    const { id } = useParams();
     const dispatch = useAppDispatch();
-    const fullName = employee?.name && employee.name.split(' ');
-
-    const [name, setName] = useState(fullName?.[0]);
-    const [surName, setSurName] = useState(fullName?.[1]);
+    const employee = useSelector(getEmployeeData);
+    const isLoading = useSelector(getIsLoading);
 
     useEffect(() => {
-        setName(fullName?.[0]);
-        setSurName(fullName?.[1]);
-    }, [employee?.name]);
+        if (id) {
+            dispatch(fetchEmployeeById(id));
+            console.log(employee);
+        }
+        return () => {
+            dispatch(employeeCardActions.initEmployee());
+        };
+    }, [dispatch, id]);
 
-    const [startDate, setStartDate] = useState<Date | undefined>(new Date());
+    if (isLoading) {
+        return <div>Загрузка</div>;
+    }
 
-    const onChangeName = useCallback(
-        (name?: string, surName?: string) => {
-            setName(name);
+    const onChangeFirstName = useCallback(
+        (firstName?: string) => {
             dispatch(
                 employeeCardActions.updateEmployee({
-                    name: `${name} ${surName}` || '',
+                    firstName: firstName || '',
                 }),
             );
         },
         [dispatch],
     );
 
-    const onChangeSurname = useCallback(
-        (surname?: string, name?: string) => {
-            setSurName(surname);
+    const onChangeLastName = useCallback(
+        (lastName?: string) => {
             dispatch(
                 employeeCardActions.updateEmployee({
-                    name: `${name} ${surname}` || '',
+                    lastName: lastName || '',
                 }),
             );
         },
@@ -83,8 +91,6 @@ export const EditableEmployeeCard = () => {
 
     const onChangeBirthday = useCallback(
         (value: Date | null) => {
-            console.log(value?.toLocaleDateString('en'));
-
             dispatch(
                 employeeCardActions.updateEmployee({
                     birthday: value?.toLocaleDateString('ru') || '',
@@ -105,8 +111,12 @@ export const EditableEmployeeCard = () => {
         [dispatch],
     );
 
-    const onSent = () => {
-        dispatch(updateEmployee());
+    const onSent = (employee?: Employee) => {
+        if (id) {
+            dispatch(updateEmployee());
+        } else {
+            dispatch(addEmployee());
+        }
     };
 
     const selectedDate = employee?.birthday
@@ -124,8 +134,8 @@ export const EditableEmployeeCard = () => {
                         Имя
                     </label>
                     <input
-                        onChange={(e) => onChangeName(e.target.value, surName)}
-                        value={name}
+                        onChange={(e) => onChangeFirstName(e.target.value)}
+                        value={employee?.firstName || ''}
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         id="nick"
                         type="text"
@@ -141,8 +151,8 @@ export const EditableEmployeeCard = () => {
                         Фамилия
                     </label>
                     <input
-                        onChange={(e) => onChangeSurname(e.target.value, name)}
-                        value={surName}
+                        onChange={(e) => onChangeLastName(e.target.value)}
+                        value={employee?.lastName || ''}
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         id="nick"
                         type="text"
@@ -160,7 +170,7 @@ export const EditableEmployeeCard = () => {
                     </label>
                     <select
                         id="role"
-                        defaultValue={employee?.role}
+                        value={employee?.role}
                         onChange={(e) => onChangeRole(e.target.value)}
                         className="block w-full px-4 py-3 text-base  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     >
@@ -199,24 +209,21 @@ export const EditableEmployeeCard = () => {
                         Телефон
                     </label>
                     <InputMask
-                        value={employee?.phone}
+                        value={employee?.phone || ''}
                         mask="+7(999) 999 9999"
                         onChange={(e) => onChangePhone(e.target.value)}
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     />
                 </div>
             </div>
-            <div className="md:flex md:items-center">
-                <div className="md:w-1/3">
-                    <button
-                        className="shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                        type="button"
-                        onClick={onSent}
-                    >
-                        Отправить
-                    </button>
-                </div>
-                <div className="md:w-2/3"></div>
+            <div className="md:flex md:items-center justify-center">
+                <button
+                    className="shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                    type="button"
+                    onClick={() => onSent(employee)}
+                >
+                    Сохранить
+                </button>
             </div>
         </form>
     );

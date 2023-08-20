@@ -1,11 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { Employee, fetchEmployeeById } from 'entities/Employee';
+import {
+    Employee,
+    EmployeeJobTitle,
+    fetchEmployeeById,
+} from 'entities/Employee';
 import { EmployeeCardSchema } from '../types/employeeCard';
 
+const employeeInit: Employee = {
+    birthday: new Date().toLocaleDateString('ru'),
+    firstName: '',
+    lastName: '',
+    phone: '',
+    role: EmployeeJobTitle.COOK,
+    isArchive: false,
+};
+
 const initialState: EmployeeCardSchema = {
-    employee: undefined,
+    employee: employeeInit,
     readonly: true,
+    isLoading: false,
 };
 
 export const employeeCardSlice = createSlice({
@@ -17,6 +31,9 @@ export const employeeCardSlice = createSlice({
                 ...state.employee,
                 ...action.payload,
             };
+        },
+        initEmployee: (state) => {
+            state.employee = initialState.employee;
         },
     },
     extraReducers: (builder) => {

@@ -1,10 +1,11 @@
 export interface Employee {
     id?: number;
-    name?: string;
     isArchive?: boolean;
     role?: string;
     phone?: string;
     birthday?: string;
+    firstName?: string;
+    lastName?: string;
 }
 
 export type JobTitle = 'driver' | 'waiter' | 'cook';
