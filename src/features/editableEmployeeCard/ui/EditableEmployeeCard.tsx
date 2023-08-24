@@ -19,6 +19,9 @@ import { getIsLoading } from '../model/selectors/getIsLoading';
 import { useParams } from 'react-router-dom';
 import { fetchEmployeeById } from 'entities/Employee';
 import { addEmployee } from '../model/services/addEmployee';
+import { Loader } from 'shared/ui/Loader/Loader';
+import { classNames } from 'shared/lib/classNames/classNames';
+import { LoaderPage } from 'shared/ui/LoaderPage/Loaderpage';
 registerLocale('ru', ru);
 
 const RoleSelectOptions = [
@@ -45,16 +48,11 @@ export const EditableEmployeeCard = () => {
     useEffect(() => {
         if (id) {
             dispatch(fetchEmployeeById(id));
-            console.log(employee);
         }
         return () => {
             dispatch(employeeCardActions.initEmployee());
         };
     }, [dispatch, id]);
-
-    if (isLoading) {
-        return <div>Загрузка</div>;
-    }
 
     const onChangeFirstName = useCallback(
         (firstName?: string) => {
@@ -111,7 +109,7 @@ export const EditableEmployeeCard = () => {
         [dispatch],
     );
 
-    const onSent = (employee?: Employee) => {
+    const onSentEmployee = () => {
         if (id) {
             dispatch(updateEmployee());
         } else {
@@ -123,104 +121,92 @@ export const EditableEmployeeCard = () => {
         ? new Date(reformateDate(employee.birthday))
         : new Date();
 
-    return (
+    return isLoading ? (
+        <LoaderPage />
+    ) : (
         <form className="w-full max-w-lg mx-auto">
-            <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full px-3">
-                    <label
-                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        htmlFor="grid-password"
-                    >
-                        Имя
+            <div className="flex flex-wrap mb-6">
+                <div className="w-full">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs mb-2">
+                        <div className="mb-3 font-medium">Имя</div>
+                        <input
+                            onChange={(e) => onChangeFirstName(e.target.value)}
+                            value={employee?.firstName || ''}
+                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            type="text"
+                        />
                     </label>
-                    <input
-                        onChange={(e) => onChangeFirstName(e.target.value)}
-                        value={employee?.firstName || ''}
-                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="nick"
-                        type="text"
-                    />
                 </div>
             </div>
-            <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full px-3">
-                    <label
-                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        htmlFor="grid-password"
-                    >
-                        Фамилия
+            <div className="flex flex-wrap mb-6">
+                <div className="w-full">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs mb-2">
+                        <div className="mb-3 font-medium">Фамилия</div>
+                        <input
+                            onChange={(e) => onChangeLastName(e.target.value)}
+                            value={employee?.lastName || ''}
+                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            type="text"
+                        />
                     </label>
-                    <input
-                        onChange={(e) => onChangeLastName(e.target.value)}
-                        value={employee?.lastName || ''}
-                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="nick"
-                        type="text"
-                    />
                 </div>
             </div>
 
-            <div className="-mx-3 mb-6">
-                <div className="w-full px-3">
-                    <label
-                        htmlFor="role"
-                        className="block mb-2 text-base font-medium "
-                    >
-                        Роль
+            <div className="mb-6">
+                <div className="w-full">
+                    <label className="block mb-2 text-base">
+                        <div className="mb-3 font-medium">Роль</div>
+                        <select
+                            value={employee?.role}
+                            onChange={(e) => onChangeRole(e.target.value)}
+                            className="block w-full px-4 py-3 text-base  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        >
+                            {RoleSelectOptions.map((role) => (
+                                <option
+                                    className="cursor-pointer text-l"
+                                    key={role.content}
+                                    value={role.value}
+                                >
+                                    {role.content}
+                                </option>
+                            ))}
+                        </select>
                     </label>
-                    <select
-                        id="role"
-                        value={employee?.role}
-                        onChange={(e) => onChangeRole(e.target.value)}
-                        className="block w-full px-4 py-3 text-base  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    >
-                        {RoleSelectOptions.map((role) => (
-                            <option
-                                className="cursor-pointer text-l"
-                                key={role.content}
-                                value={role.value}
-                            >
-                                {role.content}
-                            </option>
-                        ))}
-                    </select>
                 </div>
             </div>
-            <div className="-mx-3 mb-6">
-                <div className="w-full px-3">
-                    <label className="block mb-2 text-base font-medium">
-                        Дата рождения
+            <div className="flex flex-wrap mb-6">
+                <div className="">
+                    <label className="flex flex-col text-base">
+                        <div className="mb-3 font-medium">Дата рождения</div>
+                        <DatePicker
+                            selected={selectedDate}
+                            locale={'ru'}
+                            wrapperClassName=""
+                            className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            onChange={(date) => onChangeBirthday(date)}
+                        />
                     </label>
-                    <DatePicker
-                        selected={selectedDate}
-                        locale={'ru'}
-                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        onChange={(date) => onChangeBirthday(date)}
-                    />
                 </div>
             </div>
 
-            <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full px-3">
-                    <label
-                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        htmlFor="grid-password"
-                    >
-                        Телефон
+            <div className="flex flex-wrap mb-6">
+                <div className="w-full">
+                    <label className="block text-base ">
+                        <div className="mb-3 font-medium">Телефон</div>
+                        <InputMask
+                            value={employee?.phone || ''}
+                            mask="+7(999) 999 9999"
+                            onChange={(e) => onChangePhone(e.target.value)}
+                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        />
                     </label>
-                    <InputMask
-                        value={employee?.phone || ''}
-                        mask="+7(999) 999 9999"
-                        onChange={(e) => onChangePhone(e.target.value)}
-                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    />
                 </div>
             </div>
             <div className="md:flex md:items-center justify-center">
                 <button
                     className="shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                     type="button"
-                    onClick={() => onSent(employee)}
+                    onClick={() => onSentEmployee()}
                 >
                     Сохранить
                 </button>

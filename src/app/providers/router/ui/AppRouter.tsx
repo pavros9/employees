@@ -1,11 +1,12 @@
 import React, { memo, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { LoaderPage } from 'shared/ui/LoaderPage/Loaderpage';
 
 import { routeConfig } from '../config/routeConfig';
 
 export const AppRouter = memo(() => {
     return (
-        <Suspense fallback={<div>Loading</div>}>
+        <Suspense fallback={<LoaderPage />}>
             <Routes>
                 {Object.values(routeConfig).map(({ element, path }) => (
                     <Route

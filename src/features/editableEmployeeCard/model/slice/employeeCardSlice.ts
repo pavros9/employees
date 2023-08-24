@@ -38,11 +38,14 @@ export const employeeCardSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchEmployeeById.pending, (state) => {})
+            .addCase(fetchEmployeeById.pending, (state) => {
+                state.isLoading = true;
+            })
             .addCase(
                 fetchEmployeeById.fulfilled,
                 (state, action: PayloadAction<Employee>) => {
                     state.employee = action.payload;
+                    state.isLoading = false;
                 },
             )
             .addCase(fetchEmployeeById.rejected, (state, action) => {});
