@@ -11,6 +11,7 @@ import { reformateDate } from 'shared/lib/reformateDate/reformateDate';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { employeeCardActions } from '../model/slice/employeeCardSlice';
 import InputMask from 'react-input-mask';
+import Edit from 'shared/assets/icons/edit.png';
 
 import ru from 'date-fns/locale/ru';
 import { updateEmployee } from '../model/services/updateEmployee';
@@ -19,6 +20,7 @@ import { useParams } from 'react-router-dom';
 import { fetchEmployeeById } from 'entities/Employee';
 import { addEmployee } from '../model/services/addEmployee';
 import { LoaderPage } from 'shared/ui/LoaderPage/LoaderPage';
+import { Button } from 'shared/ui/Button/Button';
 registerLocale('ru', ru);
 
 const RoleSelectOptions = [
@@ -207,6 +209,8 @@ export const EditableEmployeeCard = () => {
                 >
                     Сохранить
                 </button>
+                <Button text={'Изменить'} icon={Edit}
+className="px-5" />
             </div>
         </form>
     );
