@@ -1,6 +1,6 @@
 import React, { memo, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { LoaderPage } from 'shared/ui/LoaderPage/Loaderpage';
+import { LoaderPage } from 'shared/ui/LoaderPage/LoaderPage';
 
 import { routeConfig } from '../config/routeConfig';
 

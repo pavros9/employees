@@ -1,5 +1,4 @@
 import {
-    Employee,
     EmployeeJobTitle,
     EmployeeJobTitleTranslation,
 } from 'entities/Employee';
@@ -19,9 +18,7 @@ import { getIsLoading } from '../model/selectors/getIsLoading';
 import { useParams } from 'react-router-dom';
 import { fetchEmployeeById } from 'entities/Employee';
 import { addEmployee } from '../model/services/addEmployee';
-import { Loader } from 'shared/ui/Loader/Loader';
-import { classNames } from 'shared/lib/classNames/classNames';
-import { LoaderPage } from 'shared/ui/LoaderPage/Loaderpage';
+import { LoaderPage } from 'shared/ui/LoaderPage/LoaderPage';
 registerLocale('ru', ru);
 
 const RoleSelectOptions = [

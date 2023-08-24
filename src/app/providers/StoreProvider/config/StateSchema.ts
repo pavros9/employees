@@ -1,11 +1,9 @@
 import { AxiosInstance } from 'axios';
 import { EmployeeSchema } from 'entities/Employee';
-import { AddEmployeeFormSchema } from 'features/addEmployeeForm/model/types/addEmployeeForm';
 import { EmployeeCardSchema } from 'features/editableEmployeeCard';
 
 export interface StateSchema {
     employee: EmployeeSchema;
-    addEmployeeForm: AddEmployeeFormSchema;
     editableEmployeeCard: EmployeeCardSchema;
 }
 
