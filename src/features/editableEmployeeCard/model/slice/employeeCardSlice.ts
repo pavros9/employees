@@ -18,6 +18,7 @@ const employeeInit: Employee = {
 
 const initialState: EmployeeCardSchema = {
     employee: employeeInit,
+    form: employeeInit,
     readonly: true,
     isLoading: false,
 };
@@ -27,13 +28,24 @@ export const employeeCardSlice = createSlice({
     initialState,
     reducers: {
         updateEmployee: (state, action: PayloadAction<Employee>) => {
-            state.employee = {
-                ...state.employee,
+            state.form = {
+                ...state.form,
                 ...action.payload,
             };
         },
+        editForm: (state) => {
+            state.readonly = false;
+        },
+        closeEditingForm: (state) => {
+            state.readonly = true;
+        },
+        cancelEditing: (state) => {
+            state.form = state.employee;
+            state.readonly = true;
+        },
         initEmployee: (state) => {
             state.employee = initialState.employee;
+            state.form = initialState.employee;
         },
     },
     extraReducers: (builder) => {
@@ -45,6 +57,7 @@ export const employeeCardSlice = createSlice({
                 fetchEmployeeById.fulfilled,
                 (state, action: PayloadAction<Employee>) => {
                     state.employee = action.payload;
+                    state.form = action.payload;
                     state.isLoading = false;
                 },
             )

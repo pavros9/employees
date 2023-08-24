@@ -3,7 +3,6 @@ import {
     EmployeeJobTitleTranslation,
 } from 'entities/Employee';
 import { useSelector } from 'react-redux';
-import { getEmployeeData } from '../model/selectors/getEmployeeData';
 import { useCallback, useEffect, useState } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -12,8 +11,6 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { employeeCardActions } from '../model/slice/employeeCardSlice';
 import InputMask from 'react-input-mask';
 import Edit from 'shared/assets/icons/edit.png';
-
-import ru from 'date-fns/locale/ru';
 import { updateEmployee } from '../model/services/updateEmployee';
 import { getIsLoading } from '../model/selectors/getIsLoading';
 import { useParams } from 'react-router-dom';
@@ -21,6 +18,11 @@ import { fetchEmployeeById } from 'entities/Employee';
 import { addEmployee } from '../model/services/addEmployee';
 import { LoaderPage } from 'shared/ui/LoaderPage/LoaderPage';
 import { Button } from 'shared/ui/Button/Button';
+import { getReadonly } from '../model/selectors/getReadonly';
+import { classNames } from 'shared/lib/classNames/classNames';
+
+import ru from 'date-fns/locale/ru';
+import { getEmployeeForm } from '../model/selectors/getEmployeeForm';
 registerLocale('ru', ru);
 
 const RoleSelectOptions = [
@@ -41,12 +43,16 @@ const RoleSelectOptions = [
 export const EditableEmployeeCard = () => {
     const { id } = useParams();
     const dispatch = useAppDispatch();
-    const employee = useSelector(getEmployeeData);
+    const employee = useSelector(getEmployeeForm);
     const isLoading = useSelector(getIsLoading);
+    const readOnly = useSelector(getReadonly);
 
     useEffect(() => {
         if (id) {
+            dispatch(employeeCardActions.closeEditingForm());
             dispatch(fetchEmployeeById(id));
+        } else {
+            dispatch(employeeCardActions.editForm());
         }
         return () => {
             dispatch(employeeCardActions.initEmployee());
@@ -109,6 +115,8 @@ export const EditableEmployeeCard = () => {
     );
 
     const onSentEmployee = () => {
+        dispatch(employeeCardActions.closeEditingForm());
+
         if (id) {
             dispatch(updateEmployee());
         } else {
@@ -120,6 +128,18 @@ export const EditableEmployeeCard = () => {
         ? new Date(reformateDate(employee.birthday))
         : new Date();
 
+    const editForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        dispatch(employeeCardActions.editForm());
+    };
+
+    const closeEditingForm = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    ) => {
+        e.preventDefault();
+        dispatch(employeeCardActions.cancelEditing());
+    };
+
     return isLoading ? (
         <LoaderPage />
     ) : (
@@ -130,8 +150,13 @@ export const EditableEmployeeCard = () => {
                         <div className="mb-3 font-medium">Имя</div>
                         <input
                             onChange={(e) => onChangeFirstName(e.target.value)}
+                            disabled={readOnly}
                             value={employee?.firstName || ''}
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            className={classNames(
+                                'appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
+                                { 'bg-gray-200': !readOnly },
+                                [],
+                            )}
                             type="text"
                         />
                     </label>
@@ -143,8 +168,13 @@ export const EditableEmployeeCard = () => {
                         <div className="mb-3 font-medium">Фамилия</div>
                         <input
                             onChange={(e) => onChangeLastName(e.target.value)}
+                            disabled={readOnly}
                             value={employee?.lastName || ''}
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            className={classNames(
+                                'appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
+                                { 'bg-gray-200': !readOnly },
+                                [],
+                            )}
                             type="text"
                         />
                     </label>
@@ -157,8 +187,13 @@ export const EditableEmployeeCard = () => {
                         <div className="mb-3 font-medium">Роль</div>
                         <select
                             value={employee?.role}
+                            disabled={readOnly}
                             onChange={(e) => onChangeRole(e.target.value)}
-                            className="block w-full px-4 py-3 text-base  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            className={classNames(
+                                'block w-full px-4 py-3 text-base text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
+                                { 'bg-gray-200': !readOnly },
+                                [],
+                            )}
                         >
                             {RoleSelectOptions.map((role) => (
                                 <option
@@ -180,8 +215,13 @@ export const EditableEmployeeCard = () => {
                         <DatePicker
                             selected={selectedDate}
                             locale={'ru'}
+                            disabled={readOnly}
                             wrapperClassName=""
-                            className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            className={classNames(
+                                'appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
+                                { 'bg-gray-200': !readOnly },
+                                [],
+                            )}
                             onChange={(date) => onChangeBirthday(date)}
                         />
                     </label>
@@ -195,22 +235,43 @@ export const EditableEmployeeCard = () => {
                         <InputMask
                             value={employee?.phone || ''}
                             mask="+7(999) 999 9999"
+                            disabled={readOnly}
                             onChange={(e) => onChangePhone(e.target.value)}
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            className={classNames(
+                                'appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
+                                { 'bg-gray-200': !readOnly },
+                                [],
+                            )}
                         />
                     </label>
                 </div>
             </div>
             <div className="md:flex md:items-center justify-center">
-                <button
-                    className="shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                    type="button"
-                    onClick={() => onSentEmployee()}
-                >
-                    Сохранить
-                </button>
-                <Button text={'Изменить'} icon={Edit}
-className="px-5" />
+                {!readOnly && (
+                    <>
+                        <button
+                            className="shadow bg-teal-400 mr-5 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                            type="button"
+                            onClick={() => onSentEmployee()}
+                        >
+                            Сохранить
+                        </button>
+                        {id && (
+                            <button onClick={closeEditingForm} className="px-5">
+                                Отмена
+                            </button>
+                        )}
+                    </>
+                )}
+
+                {readOnly && (
+                    <Button
+                        onClick={editForm}
+                        text={'Изменить'}
+                        icon={Edit}
+                        className="px-5"
+                    />
+                )}
             </div>
         </form>
     );
