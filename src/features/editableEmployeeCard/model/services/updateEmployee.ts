@@ -11,7 +11,7 @@ export const updateEmployee = createAsyncThunk<
 >('updateEmployee', async (_, thunkApi) => {
     const { extra, rejectWithValue, getState } = thunkApi;
     const employeeData = getEmployeeData(getState());
-    console.log(employeeData);
+
     try {
         const response = await extra.api.put<Employee>(
             `/api/employees/${employeeData?.id}`,

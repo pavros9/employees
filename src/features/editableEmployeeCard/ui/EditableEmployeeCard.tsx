@@ -3,7 +3,7 @@ import {
     EmployeeJobTitleTranslation,
 } from 'entities/Employee';
 import { useSelector } from 'react-redux';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { reformateDate } from 'shared/lib/reformateDate/reformateDate';
@@ -23,7 +23,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 
 import ru from 'date-fns/locale/ru';
 import { getEmployeeForm } from '../model/selectors/getEmployeeForm';
-import { notificationActions, NotificationType } from 'entities/Notification';
+import { NotificationType } from 'entities/Notification';
 import { showNotificationWithTimeout } from 'entities/Notification/lib/showNotificationWithTimeout';
 registerLocale('ru', ru);
 

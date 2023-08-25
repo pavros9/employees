@@ -12,7 +12,6 @@ export const EmployeesList = (props: EmployeesListProps) => {
     const navigate = useNavigate();
 
     const onChooseEnmployee = (emp: Employee) => {
-        console.log(emp);
         navigate('/employee/' + String(emp.id));
     };
 

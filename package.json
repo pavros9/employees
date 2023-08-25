@@ -27,6 +27,7 @@
         "@babel/preset-env": "^7.22.9",
         "@babel/preset-react": "^7.22.5",
         "@babel/preset-typescript": "^7.22.5",
+        "@svgr/webpack": "^8.1.0",
         "@types/node": "^20.4.5",
         "@types/react-datepicker": "^4.15.0",
         "@types/react-dom": "^18.2.7",

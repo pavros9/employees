@@ -9,7 +9,6 @@ export const showNotificationWithTimeout = (
     message: string,
     time: number = 1000,
 ) => {
-    console.log(message);
     dispatch(
         notificationActions.addNotification({
             message,

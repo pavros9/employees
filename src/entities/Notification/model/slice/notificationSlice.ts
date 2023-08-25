@@ -14,7 +14,6 @@ export const notificationSlice = createSlice({
             state: NotificationSchema,
             { payload }: PayloadAction<Notification>,
         ) => {
-            console.log(payload);
             state.items?.push(payload);
         },
 
