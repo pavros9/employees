@@ -23,6 +23,8 @@ import { classNames } from 'shared/lib/classNames/classNames';
 
 import ru from 'date-fns/locale/ru';
 import { getEmployeeForm } from '../model/selectors/getEmployeeForm';
+import { notificationActions, NotificationType } from 'entities/Notification';
+import { showNotificationWithTimeout } from 'entities/Notification/lib/showNotificationWithTimeout';
 registerLocale('ru', ru);
 
 const RoleSelectOptions = [
@@ -118,9 +120,21 @@ export const EditableEmployeeCard = () => {
         dispatch(employeeCardActions.closeEditingForm());
 
         if (id) {
-            dispatch(updateEmployee());
+            dispatch(updateEmployee()).then(() => {
+                showNotificationWithTimeout(
+                    dispatch,
+                    NotificationType.ACCESS,
+                    'Обновлен работник',
+                );
+            });
         } else {
-            dispatch(addEmployee());
+            dispatch(addEmployee()).then(() => {
+                showNotificationWithTimeout(
+                    dispatch,
+                    NotificationType.ACCESS,
+                    'Добавлен работник',
+                );
+            });
         }
     };
 
@@ -138,6 +152,11 @@ export const EditableEmployeeCard = () => {
     ) => {
         e.preventDefault();
         dispatch(employeeCardActions.cancelEditing());
+        showNotificationWithTimeout(
+            dispatch,
+            NotificationType.CANCEL,
+            'Отмена изменений',
+        );
     };
 
     return isLoading ? (
@@ -246,7 +265,7 @@ export const EditableEmployeeCard = () => {
                     </label>
                 </div>
             </div>
-            <div className="md:flex md:items-center justify-center">
+            <div className="flex items-center justify-center">
                 {!readOnly && (
                     <>
                         <button
