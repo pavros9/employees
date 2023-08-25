@@ -13,7 +13,7 @@ import InputMask from 'react-input-mask';
 import Edit from 'shared/assets/icons/edit.png';
 import { updateEmployee } from '../model/services/updateEmployee';
 import { getIsLoading } from '../model/selectors/getIsLoading';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { fetchEmployeeById } from 'entities/Employee';
 import { addEmployee } from '../model/services/addEmployee';
 import { LoaderPage } from 'shared/ui/LoaderPage/LoaderPage';
@@ -48,6 +48,12 @@ export const EditableEmployeeCard = () => {
     const employee = useSelector(getEmployeeForm);
     const isLoading = useSelector(getIsLoading);
     const readOnly = useSelector(getReadonly);
+
+    const navigate = useNavigate();
+
+    const backHistory = () => {
+        navigate(-1);
+    };
 
     useEffect(() => {
         if (id) {
@@ -162,136 +168,156 @@ export const EditableEmployeeCard = () => {
     return isLoading ? (
         <LoaderPage />
     ) : (
-        <form className="w-full max-w-lg mx-auto">
-            <div className="flex flex-wrap mb-6">
-                <div className="w-full">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs mb-2">
-                        <div className="mb-3 font-medium">Имя</div>
-                        <input
-                            onChange={(e) => onChangeFirstName(e.target.value)}
-                            disabled={readOnly}
-                            value={employee?.firstName || ''}
-                            className={classNames(
-                                'appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
-                                { 'bg-gray-200': !readOnly },
-                                [],
-                            )}
-                            type="text"
-                        />
-                    </label>
-                </div>
-            </div>
-            <div className="flex flex-wrap mb-6">
-                <div className="w-full">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs mb-2">
-                        <div className="mb-3 font-medium">Фамилия</div>
-                        <input
-                            onChange={(e) => onChangeLastName(e.target.value)}
-                            disabled={readOnly}
-                            value={employee?.lastName || ''}
-                            className={classNames(
-                                'appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
-                                { 'bg-gray-200': !readOnly },
-                                [],
-                            )}
-                            type="text"
-                        />
-                    </label>
-                </div>
-            </div>
+        <>
+            {id && (
+                <button
+                    onClick={backHistory}
+                    className="bg-[#2d91e9] text-white px-5 py-3 rounded-lg"
+                >
+                    Назад
+                </button>
+            )}
 
-            <div className="mb-6">
-                <div className="w-full">
-                    <label className="block mb-2 text-base">
-                        <div className="mb-3 font-medium">Роль</div>
-                        <select
-                            value={employee?.role}
-                            disabled={readOnly}
-                            onChange={(e) => onChangeRole(e.target.value)}
-                            className={classNames(
-                                'block w-full px-4 py-3 text-base text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
-                                { 'bg-gray-200': !readOnly },
-                                [],
-                            )}
-                        >
-                            {RoleSelectOptions.map((role) => (
-                                <option
-                                    className="cursor-pointer text-l"
-                                    key={role.content}
-                                    value={role.value}
-                                >
-                                    {role.content}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
+            <form className="w-full max-w-lg mx-auto">
+                <div className="flex flex-wrap mb-6">
+                    <div className="w-full">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs mb-2">
+                            <div className="mb-3 font-medium">Имя</div>
+                            <input
+                                onChange={(e) =>
+                                    onChangeFirstName(e.target.value)
+                                }
+                                disabled={readOnly}
+                                value={employee?.firstName || ''}
+                                className={classNames(
+                                    'appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
+                                    { 'bg-gray-200': !readOnly },
+                                    [],
+                                )}
+                                type="text"
+                            />
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div className="flex flex-wrap mb-6">
-                <div className="">
-                    <label className="flex flex-col text-base">
-                        <div className="mb-3 font-medium">Дата рождения</div>
-                        <DatePicker
-                            selected={selectedDate}
-                            locale={'ru'}
-                            disabled={readOnly}
-                            wrapperClassName=""
-                            className={classNames(
-                                'appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
-                                { 'bg-gray-200': !readOnly },
-                                [],
-                            )}
-                            onChange={(date) => onChangeBirthday(date)}
-                        />
-                    </label>
+                <div className="flex flex-wrap mb-6">
+                    <div className="w-full">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs mb-2">
+                            <div className="mb-3 font-medium">Фамилия</div>
+                            <input
+                                onChange={(e) =>
+                                    onChangeLastName(e.target.value)
+                                }
+                                disabled={readOnly}
+                                value={employee?.lastName || ''}
+                                className={classNames(
+                                    'appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
+                                    { 'bg-gray-200': !readOnly },
+                                    [],
+                                )}
+                                type="text"
+                            />
+                        </label>
+                    </div>
                 </div>
-            </div>
 
-            <div className="flex flex-wrap mb-6">
-                <div className="w-full">
-                    <label className="block text-base ">
-                        <div className="mb-3 font-medium">Телефон</div>
-                        <InputMask
-                            value={employee?.phone || ''}
-                            mask="+7(999) 999 9999"
-                            disabled={readOnly}
-                            onChange={(e) => onChangePhone(e.target.value)}
-                            className={classNames(
-                                'appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
-                                { 'bg-gray-200': !readOnly },
-                                [],
-                            )}
-                        />
-                    </label>
+                <div className="mb-6">
+                    <div className="w-full">
+                        <label className="block mb-2 text-base">
+                            <div className="mb-3 font-medium">Роль</div>
+                            <select
+                                value={employee?.role}
+                                disabled={readOnly}
+                                onChange={(e) => onChangeRole(e.target.value)}
+                                className={classNames(
+                                    'block w-full px-4 py-3 text-base text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
+                                    { 'bg-gray-200': !readOnly },
+                                    [],
+                                )}
+                            >
+                                {RoleSelectOptions.map((role) => (
+                                    <option
+                                        className="cursor-pointer text-l"
+                                        key={role.content}
+                                        value={role.value}
+                                    >
+                                        {role.content}
+                                    </option>
+                                ))}
+                            </select>
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div className="flex items-center justify-center">
-                {!readOnly && (
-                    <>
-                        <button
-                            className="shadow bg-teal-400 mr-5 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                            type="button"
-                            onClick={() => onSentEmployee()}
-                        >
-                            Сохранить
-                        </button>
-                        {id && (
-                            <button onClick={closeEditingForm} className="px-5">
-                                Отмена
+                <div className="flex flex-wrap mb-6">
+                    <div className="">
+                        <label className="flex flex-col text-base">
+                            <div className="mb-3 font-medium">
+                                Дата рождения
+                            </div>
+                            <DatePicker
+                                selected={selectedDate}
+                                locale={'ru'}
+                                disabled={readOnly}
+                                wrapperClassName=""
+                                className={classNames(
+                                    'appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
+                                    { 'bg-gray-200': !readOnly },
+                                    [],
+                                )}
+                                onChange={(date) => onChangeBirthday(date)}
+                            />
+                        </label>
+                    </div>
+                </div>
+
+                <div className="flex flex-wrap mb-6">
+                    <div className="w-full">
+                        <label className="block text-base ">
+                            <div className="mb-3 font-medium">Телефон</div>
+                            <InputMask
+                                value={employee?.phone || ''}
+                                mask="+7(999) 999 9999"
+                                disabled={readOnly}
+                                onChange={(e) => onChangePhone(e.target.value)}
+                                className={classNames(
+                                    'appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500',
+                                    { 'bg-gray-200': !readOnly },
+                                    [],
+                                )}
+                            />
+                        </label>
+                    </div>
+                </div>
+                <div className="flex items-center justify-center">
+                    {!readOnly && (
+                        <>
+                            <button
+                                className="shadow bg-teal-400 mr-5 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                type="button"
+                                onClick={() => onSentEmployee()}
+                            >
+                                Сохранить
                             </button>
-                        )}
-                    </>
-                )}
+                            {id && (
+                                <button
+                                    onClick={closeEditingForm}
+                                    className="px-5"
+                                >
+                                    Отмена
+                                </button>
+                            )}
+                        </>
+                    )}
 
-                {readOnly && (
-                    <Button
-                        onClick={editForm}
-                        text={'Изменить'}
-                        icon={Edit}
-                        className="px-5"
-                    />
-                )}
-            </div>
-        </form>
+                    {readOnly && (
+                        <Button
+                            onClick={editForm}
+                            text={'Изменить'}
+                            icon={Edit}
+                            className="px-5"
+                        />
+                    )}
+                </div>
+            </form>
+        </>
     );
 };
