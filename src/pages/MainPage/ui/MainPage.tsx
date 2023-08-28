@@ -1,13 +1,19 @@
-import { fetchEmployees, getEmployeesData } from 'entities/Employee';
+import {
+    fetchEmployees,
+    getEmployeesData,
+    getIsLoading,
+} from 'entities/Employee';
 import { EmployeesList } from 'entities/Employee/ui/EmployeesList/EmployeesList';
 import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { LoaderPage } from 'shared/ui/LoaderPage/LoaderPage';
 import { Pagination } from 'shared/ui/Pagination/Pagination';
 
 const MainPage = () => {
     const dispatch = useAppDispatch();
     const employees = useSelector(getEmployeesData);
+    const isLoading = useSelector(getIsLoading);
     const PageSize = 10;
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -27,15 +33,23 @@ const MainPage = () => {
             <h3 className="text-3xl text-center mb-5 font-bold">
                 Список работников
             </h3>
-            <EmployeesList employees={currentTableData} />
-            {employees && (
-                <Pagination
-                    className="pagination-bar"
-                    currentPage={currentPage}
-                    totalCount={employees.length}
-                    pageSize={PageSize}
-                    onPageChange={(page) => setCurrentPage(page)}
-                />
+            {isLoading ? (
+                <LoaderPage />
+            ) : (
+                <>
+                    {employees && (
+                        <>
+                            <EmployeesList employees={currentTableData} />
+                            <Pagination
+                                className="pagination-bar"
+                                currentPage={currentPage}
+                                totalCount={employees.length}
+                                pageSize={PageSize}
+                                onPageChange={(page) => setCurrentPage(page)}
+                            />
+                        </>
+                    )}
+                </>
             )}
         </div>
     );
