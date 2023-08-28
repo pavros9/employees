@@ -1,6 +1,7 @@
 import { Employee } from 'entities/Employee';
 import { EmployeeJobTitleTranslation } from 'entities/Employee/model/const/employeeConts';
 import { JobTitle } from '../../model/types/employee';
+import DeleteIcon from 'shared/assets/icons/delete.svg';
 import { useNavigate } from 'react-router-dom';
 
 interface EmployeesListProps {
@@ -33,21 +34,33 @@ export const EmployeesList = (props: EmployeesListProps) => {
                                     <th className="py-3 px-6 text-center">
                                         Дата рождения
                                     </th>
+                                    <th className="py-3 px-6 text-center">
+                                        Действия
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody className="text-gray-600 text-sm font-light">
                                 {employees?.map((emp: Employee) => (
                                     <tr
                                         key={emp.id}
-                                        onClick={() => onChooseEnmployee(emp)}
-                                        className="border-b cursor-pointer border-gray-200 hover:bg-gray-100"
+                                        className="border-b cursor-pointer border-gray-200 "
                                     >
-                                        <td className="py-3 px-6 text-left whitespace-nowrap">
+                                        <td
+                                            onClick={() =>
+                                                onChooseEnmployee(emp)
+                                            }
+                                            className="py-3 px-6 text-left whitespace-nowrap hover:bg-gray-100"
+                                        >
                                             <span className="font-medium">
                                                 {emp.firstName}
                                             </span>
                                         </td>
-                                        <td className="py-3 px-6 text-left">
+                                        <td
+                                            onClick={() =>
+                                                onChooseEnmployee(emp)
+                                            }
+                                            className="py-3 px-6 text-left hover:bg-gray-100"
+                                        >
                                             {
                                                 EmployeeJobTitleTranslation[
                                                     emp.role as JobTitle
@@ -59,6 +72,18 @@ export const EmployeesList = (props: EmployeesListProps) => {
                                         </td>
                                         <td className="py-3 px-6 text-center">
                                             {emp.birthday}
+                                        </td>
+                                        <td className="py-3 px-6 text-center flex justify-center">
+                                            <DeleteIcon
+                                                onClick={() =>
+                                                    console.log(
+                                                        'Открытие модалки',
+                                                    )
+                                                }
+                                                className="hover:scale-125 transition duration-150 ease-out"
+                                                width={'32px'}
+                                                height={'32px'}
+                                            />
                                         </td>
                                     </tr>
                                 ))}
