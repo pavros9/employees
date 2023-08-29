@@ -4,6 +4,7 @@ import {
     getIsLoading,
 } from 'entities/Employee';
 import { EmployeesList } from 'entities/Employee/ui/EmployeesList/EmployeesList';
+import { DeleteEmployee } from 'features/deleteEmployee';
 import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -11,6 +12,10 @@ import { LoaderPage } from 'shared/ui/LoaderPage/LoaderPage';
 import { Pagination } from 'shared/ui/Pagination/Pagination';
 
 const MainPage = () => {
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [selectedEmployee, setSelectedEmployee] = useState<
+        undefined | number
+    >(undefined);
     const dispatch = useAppDispatch();
     const employees = useSelector(getEmployeesData);
     const isLoading = useSelector(getIsLoading);
@@ -28,6 +33,11 @@ const MainPage = () => {
         return employees?.slice(firstPageIndex, lastPageIndex);
     }, [currentPage, employees]);
 
+    const onOpenModal = (id: number) => {
+        setIsOpenModal(true);
+        setSelectedEmployee(id);
+    };
+
     return (
         <div className="max-w-screen-xl px-6 py-16 mx-auto sm:px-6 lg:px-4">
             <h3 className="text-3xl text-center mb-5 font-bold">
@@ -39,7 +49,10 @@ const MainPage = () => {
                 <>
                     {employees && (
                         <>
-                            <EmployeesList employees={currentTableData} />
+                            <EmployeesList
+                                openModal={onOpenModal}
+                                employees={currentTableData}
+                            />
                             <Pagination
                                 className="pagination-bar"
                                 currentPage={currentPage}
@@ -50,6 +63,13 @@ const MainPage = () => {
                         </>
                     )}
                 </>
+            )}
+            {isOpenModal && (
+                <DeleteEmployee
+                    selectedEmployee={selectedEmployee}
+                    closeModal={setIsOpenModal}
+                    isOpenModal={isOpenModal}
+                />
             )}
         </div>
     );

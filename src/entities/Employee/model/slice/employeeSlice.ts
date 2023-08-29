@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Employee } from '../types/employee';
 import { EmployeeSchema } from '../types/employeeSchema';
+import { deleteEmployeeById } from 'features/deleteEmployee/model/services/deleteEmployee';
 
 const initialState: EmployeeSchema = {
     isLoading: false,
@@ -30,7 +31,14 @@ export const employeeSlice = createSlice({
                     state.data = action.payload;
                 },
             )
-            .addCase(fetchEmployees.rejected, (state, action) => {});
+            .addCase(fetchEmployees.rejected, (state, action) => {})
+            .addCase(deleteEmployeeById.pending, (state) => {})
+            .addCase(deleteEmployeeById.fulfilled, (state, action) => {
+                state.data = state.data?.filter(
+                    (emp) => emp.id !== Number(action.meta.arg),
+                );
+            })
+            .addCase(deleteEmployeeById.rejected, (state, action) => {});
     },
 });
 
