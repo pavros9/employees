@@ -4,12 +4,14 @@ import { $api } from 'shared/api/api';
 import { employeeReducer } from 'entities/Employee';
 import { employeeCardReducer } from 'features/editableEmployeeCard';
 import { notificationReducer } from 'entities/Notification';
+import { mainPageReducer } from 'pages/MainPage';
 
 export function createReduxStore(initialState?: StateSchema) {
     const rootReducers: ReducersMapObject<StateSchema> = {
         employee: employeeReducer,
         editableEmployeeCard: employeeCardReducer,
         notification: notificationReducer,
+        mainpage: mainPageReducer,
     };
 
     const extraArg: ThunkExtraArg = {

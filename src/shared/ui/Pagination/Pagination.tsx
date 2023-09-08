@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Arrow from 'shared/assets/icons/arrow.svg';
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
@@ -32,7 +32,7 @@ export const Pagination = (props: PaginationProps) => {
         pageSize,
     });
 
-    if (currentPage === 0 || (paginationRange && paginationRange?.length < 2)) {
+    if (currentPage === 0) {
         return null;
     }
 

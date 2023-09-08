@@ -5,33 +5,45 @@ import {
 } from 'entities/Employee';
 import { EmployeesList } from 'entities/Employee/ui/EmployeesList/EmployeesList';
 import { DeleteEmployee } from 'features/deleteEmployee';
+import { getSelectedEmployees } from 'pages/MainPage/model/selectors/getSelectedEmployees';
+import { getTypeEmployeeSelector } from 'pages/MainPage/model/selectors/getTypeEmployee';
 import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { LoaderPage } from 'shared/ui/LoaderPage/LoaderPage';
 import { Pagination } from 'shared/ui/Pagination/Pagination';
+import { MainPageFilter } from '../MainPageFilter/MainPageFilter';
 
 const MainPage = () => {
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [selectedEmployee, setSelectedEmployee] = useState<
         undefined | number
     >(undefined);
-    const dispatch = useAppDispatch();
-    const employees = useSelector(getEmployeesData);
-    const isLoading = useSelector(getIsLoading);
-    const PageSize = 10;
     const [currentPage, setCurrentPage] = useState(1);
+
+    const dispatch = useAppDispatch();
+
+    const employees = useSelector(getEmployeesData);
+    const selectedEmployees = useSelector(getSelectedEmployees);
+    const typeEmployeeSelector = useSelector(getTypeEmployeeSelector);
+    const isLoading = useSelector(getIsLoading);
+
+    const PageSize = 10;
 
     useEffect(() => {
         dispatch(fetchEmployees());
     }, [dispatch]);
 
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [typeEmployeeSelector]);
+
     const currentTableData = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * PageSize;
         const lastPageIndex = firstPageIndex + PageSize;
 
-        return employees?.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage, employees]);
+        return selectedEmployees?.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage, selectedEmployees]);
 
     const onOpenModal = (id: number) => {
         setIsOpenModal(true);
@@ -47,7 +59,8 @@ const MainPage = () => {
                 <LoaderPage />
             ) : (
                 <>
-                    {employees && (
+                    <MainPageFilter />
+                    {selectedEmployees && (
                         <>
                             <EmployeesList
                                 openModal={onOpenModal}
@@ -56,7 +69,7 @@ const MainPage = () => {
                             <Pagination
                                 className="pagination-bar"
                                 currentPage={currentPage}
-                                totalCount={employees.length}
+                                totalCount={selectedEmployees.length}
                                 pageSize={PageSize}
                                 onPageChange={(page) => setCurrentPage(page)}
                             />

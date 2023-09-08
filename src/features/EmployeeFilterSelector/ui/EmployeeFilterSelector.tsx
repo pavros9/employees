@@ -1,6 +1,5 @@
 import { memo } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './EmployeeFilterSelector.module.scss';
 import Select from 'react-select';
 import { EmployeeJobTitle } from 'entities/Employee';
 
@@ -34,11 +33,7 @@ export const EmployeeFilterSelector = memo(
         ];
 
         return (
-            <div
-                className={classNames(cls.EmployeeFilterSelector, {}, [
-                    className,
-                ])}
-            >
+            <div className={classNames('', {}, [className])}>
                 <Select
                     placeholder={'Должность'}
                     defaultValue={typeOptions[0]}
@@ -46,7 +41,6 @@ export const EmployeeFilterSelector = memo(
                     onChange={(value) =>
                         value && onChangeType(value.value as EmployeeJobTitle)
                     }
-                    className={cls.order}
                 />
             </div>
         );
