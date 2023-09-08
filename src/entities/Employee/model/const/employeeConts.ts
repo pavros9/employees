@@ -4,6 +4,7 @@ export enum EmployeeJobTitle {
     DRIVER = 'driver',
     WAITER = 'waiter',
     COOK = 'cook',
+    ALL = 'all',
 }
 
 export const EmployeeJobTitleTranslation: Record<JobTitle, string> = {
