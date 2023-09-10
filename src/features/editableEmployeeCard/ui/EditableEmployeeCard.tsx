@@ -1,4 +1,5 @@
 import {
+    Employee,
     EmployeeJobTitle,
     EmployeeJobTitleTranslation,
 } from 'entities/Employee';
@@ -25,6 +26,9 @@ import ru from 'date-fns/locale/ru';
 import { getEmployeeForm } from '../model/selectors/getEmployeeForm';
 import { NotificationType } from 'entities/Notification';
 import { showNotificationWithTimeout } from 'entities/Notification/lib/showNotificationWithTimeout';
+import { validateEmployeeCard } from '../model/lib/validateEmployeeCard';
+import { getValidateErrors } from '../model/selectors/getValidateErrors';
+import { ValidateEmployeeCardError } from '../model/const/const';
 registerLocale('ru', ru);
 
 const RoleSelectOptions = [
@@ -48,6 +52,7 @@ export const EditableEmployeeCard = () => {
     const employee = useSelector(getEmployeeForm);
     const isLoading = useSelector(getIsLoading);
     const readOnly = useSelector(getReadonly);
+    const validateErrors = useSelector(getValidateErrors);
 
     const navigate = useNavigate();
 
@@ -122,25 +127,33 @@ export const EditableEmployeeCard = () => {
         [dispatch],
     );
 
-    const onSentEmployee = () => {
-        dispatch(employeeCardActions.closeEditingForm());
+    const onSentEmployee = async (employee: Employee) => {
+        const errors = await dispatch(
+            employeeCardActions.setValidateErrors(
+                validateEmployeeCard(employee),
+            ),
+        );
 
-        if (id) {
-            dispatch(updateEmployee()).then(() => {
-                showNotificationWithTimeout(
-                    dispatch,
-                    NotificationType.ACCESS,
-                    'Обновлен работник',
-                );
-            });
-        } else {
-            dispatch(addEmployee()).then(() => {
-                showNotificationWithTimeout(
-                    dispatch,
-                    NotificationType.ACCESS,
-                    'Добавлен работник',
-                );
-            });
+        if (errors.payload?.length === 0) {
+            if (id) {
+                dispatch(updateEmployee()).then(() => {
+                    showNotificationWithTimeout(
+                        dispatch,
+                        NotificationType.ACCESS,
+                        'Обновлен работник',
+                    );
+                    dispatch(employeeCardActions.closeEditingForm());
+                });
+            } else {
+                dispatch(addEmployee()).then(() => {
+                    showNotificationWithTimeout(
+                        dispatch,
+                        NotificationType.ACCESS,
+                        'Добавлен работник',
+                    );
+                    dispatch(employeeCardActions.initEmployee());
+                });
+            }
         }
     };
 
@@ -165,9 +178,11 @@ export const EditableEmployeeCard = () => {
         );
     };
 
-    return isLoading ? (
-        <LoaderPage />
-    ) : (
+    if (isLoading) {
+        return <LoaderPage />;
+    }
+
+    return (
         <>
             {id && (
                 <button
@@ -197,6 +212,11 @@ export const EditableEmployeeCard = () => {
                                 type="text"
                             />
                         </label>
+                        {validateErrors?.includes(
+                            ValidateEmployeeCardError.REQUIRED_FIRST_NAME,
+                        ) && (
+                            <div className="text-red-500">Имя обязательно</div>
+                        )}
                     </div>
                 </div>
                 <div className="flex flex-wrap mb-6">
@@ -217,6 +237,13 @@ export const EditableEmployeeCard = () => {
                                 type="text"
                             />
                         </label>
+                        {validateErrors?.includes(
+                            ValidateEmployeeCardError.REQUIRED_LAST_NAME,
+                        ) && (
+                            <div className="text-red-500">
+                                Фамилия обязательна
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -285,15 +312,22 @@ export const EditableEmployeeCard = () => {
                                 )}
                             />
                         </label>
+                        {validateErrors?.includes(
+                            ValidateEmployeeCardError.REQUIRED_PHONE,
+                        ) && (
+                            <div className="text-red-500">
+                                Телефон обязателен
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className="flex items-center justify-center">
-                    {!readOnly && (
+                    {!readOnly && employee && (
                         <>
                             <button
                                 className="shadow bg-teal-400 mr-5 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                 type="button"
-                                onClick={() => onSentEmployee()}
+                                onClick={() => onSentEmployee(employee)}
                             >
                                 Сохранить
                             </button>

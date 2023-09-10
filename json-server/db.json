@@ -161,15 +161,6 @@
             "role": "cook",
             "isArchive": false,
             "id": 18
-        },
-        {
-            "birthday": "19.08.2023",
-            "firstName": "Ананас",
-            "lastName": "Круглый",
-            "phone": "+7(952) 200 5750",
-            "role": "waiter",
-            "isArchive": false,
-            "id": 19
         }
     ]
 }

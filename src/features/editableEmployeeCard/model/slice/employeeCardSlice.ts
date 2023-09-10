@@ -6,6 +6,7 @@ import {
     fetchEmployeeById,
 } from 'entities/Employee';
 import { EmployeeCardSchema } from '../types/employeeCard';
+import { ValidateEmployeeCardError } from '../const/const';
 
 const employeeInit: Employee = {
     birthday: new Date().toLocaleDateString('ru'),
@@ -46,6 +47,12 @@ export const employeeCardSlice = createSlice({
         initEmployee: (state) => {
             state.employee = initialState.employee;
             state.form = initialState.employee;
+        },
+        setValidateErrors: (
+            state,
+            action: PayloadAction<ValidateEmployeeCardError[]>,
+        ) => {
+            state.validateErrors = action.payload;
         },
     },
     extraReducers: (builder) => {
