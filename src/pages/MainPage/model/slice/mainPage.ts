@@ -5,6 +5,7 @@ import {
     EmployeeSortField,
     fetchEmployees,
 } from 'entities/Employee';
+import { deleteEmployeeById } from 'features/deleteEmployee/model/services/deleteEmployee';
 import { sortEmployeesByDate } from 'shared/lib/sortEmployeesByDate/sortEmployeesByDate';
 import { SortOrder } from 'shared/types/sort';
 import { MainPageSchema } from '../types/MainPageSchema';
@@ -17,7 +18,7 @@ const initialState: MainPageSchema = {
 
     order: 'desc',
     sort: EmployeeSortField.CREATED,
-    type: EmployeeJobTitle.COOK,
+    type: EmployeeJobTitle.ALL,
 };
 
 export const mainPageSlice = createSlice({
@@ -99,7 +100,20 @@ export const mainPageSlice = createSlice({
                     state.isLoading = false;
                 },
             )
-            .addCase(fetchEmployees.rejected, (state, action) => {});
+            .addCase(fetchEmployees.rejected, (state, action) => {})
+
+            .addCase(deleteEmployeeById.pending, (state) => {})
+            .addCase(deleteEmployeeById.fulfilled, (state, action) => {
+                state.employees.selectedItems =
+                    state.employees.selectedItems?.filter(
+                        (emp) => emp.id !== Number(action.meta.arg),
+                    );
+
+                state.employees.items = state.employees.items?.filter(
+                    (emp) => emp.id !== Number(action.meta.arg),
+                );
+            })
+            .addCase(deleteEmployeeById.rejected, (state, action) => {});
     },
 });
 
