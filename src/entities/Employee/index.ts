@@ -8,4 +8,5 @@ export { Employee } from './model/types/employee';
 export {
     EmployeeJobTitle,
     EmployeeJobTitleTranslation,
+    EmployeeSortField,
 } from './model/const/employeeConts';

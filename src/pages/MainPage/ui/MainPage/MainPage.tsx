@@ -10,8 +10,10 @@ import { getTypeEmployeeSelector } from 'pages/MainPage/model/selectors/getTypeE
 import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { Loader } from 'shared/ui/Loader/Loader';
 import { LoaderPage } from 'shared/ui/LoaderPage/LoaderPage';
 import { Pagination } from 'shared/ui/Pagination/Pagination';
+import { Select } from 'shared/ui/Select/Select';
 import { MainPageFilter } from '../MainPageFilter/MainPageFilter';
 
 const MainPage = () => {
@@ -55,17 +57,19 @@ const MainPage = () => {
             <h3 className="text-3xl text-center mb-5 font-bold">
                 Список работников
             </h3>
-            {isLoading ? (
+            {isLoading || !currentTableData?.length ? (
                 <LoaderPage />
             ) : (
                 <>
                     <MainPageFilter />
+
                     {selectedEmployees && (
                         <>
                             <EmployeesList
                                 openModal={onOpenModal}
                                 employees={currentTableData}
                             />
+
                             <Pagination
                                 className="pagination-bar"
                                 currentPage={currentPage}

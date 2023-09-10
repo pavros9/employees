@@ -12,3 +12,8 @@ export const EmployeeJobTitleTranslation: Record<JobTitle, string> = {
     [EmployeeJobTitle.WAITER]: 'Официант',
     [EmployeeJobTitle.COOK]: 'Повар',
 };
+
+export enum EmployeeSortField {
+    NAME = 'name',
+    CREATED = 'createdAt',
+}

@@ -1,0 +1,22 @@
+.Wrapper {
+    display: flex;
+}
+
+.label {
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.select {
+    background: none;
+    outline: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.option {
+    color: black;
+    border-radius: initial;
+}

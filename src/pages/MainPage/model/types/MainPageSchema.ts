@@ -1,4 +1,9 @@
-import { Employee, EmployeeJobTitle } from 'entities/Employee';
+import {
+    Employee,
+    EmployeeJobTitle,
+    EmployeeSortField,
+} from 'entities/Employee';
+import { SortOrder } from 'shared/types/sort';
 
 export interface MainPageSchema {
     employees: {
@@ -7,4 +12,6 @@ export interface MainPageSchema {
     };
     isLoading: boolean;
     type: EmployeeJobTitle;
+    sort: EmployeeSortField;
+    order: SortOrder;
 }

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
-import Select from 'react-select';
 import { EmployeeJobTitle } from 'entities/Employee';
+import { Select } from 'shared/ui/Select/Select';
 
 interface EmployeeFilterSelectorProps {
     className?: string;
@@ -16,31 +16,30 @@ export const EmployeeFilterSelector = memo(
         const typeOptions = [
             {
                 value: EmployeeJobTitle.ALL,
-                label: 'Все',
+                content: 'Все',
             },
             {
                 value: EmployeeJobTitle.COOK,
-                label: 'Повар',
+                content: 'Повар',
             },
             {
                 value: EmployeeJobTitle.DRIVER,
-                label: 'Водитель',
+                content: 'Водитель',
             },
             {
                 value: EmployeeJobTitle.WAITER,
-                label: 'Писатель',
+                content: 'Официант',
             },
         ];
 
         return (
             <div className={classNames('', {}, [className])}>
                 <Select
-                    placeholder={'Должность'}
-                    defaultValue={typeOptions[0]}
+                    className="min-w-[300px]"
+                    placeholder="Должность"
+                    value={typeOptions[0].value}
                     options={typeOptions}
-                    onChange={(value) =>
-                        value && onChangeType(value.value as EmployeeJobTitle)
-                    }
+                    onChange={onChangeType}
                 />
             </div>
         );

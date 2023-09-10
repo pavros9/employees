@@ -5,7 +5,7 @@ import DeleteIcon from 'shared/assets/icons/delete.svg';
 import { useNavigate } from 'react-router-dom';
 
 interface EmployeesListProps {
-    employees?: Employee[];
+    employees: Employee[];
     openModal: (id: number) => void;
 }
 
@@ -41,53 +41,51 @@ export const EmployeesList = (props: EmployeesListProps) => {
                                 </tr>
                             </thead>
                             <tbody className="text-gray-600 text-sm font-light">
-                                {employees?.length &&
-                                    employees.map((emp: Employee) => (
-                                        <tr
-                                            key={emp.id}
-                                            className="border-b cursor-pointer border-gray-200 "
+                                {employees.map((emp: Employee) => (
+                                    <tr
+                                        key={emp.id}
+                                        className="border-b cursor-pointer border-gray-200 "
+                                    >
+                                        <td
+                                            onClick={() =>
+                                                onChooseEnmployee(emp)
+                                            }
+                                            className="py-3 px-6 text-left whitespace-nowrap hover:bg-gray-100"
                                         >
-                                            <td
-                                                onClick={() =>
-                                                    onChooseEnmployee(emp)
-                                                }
-                                                className="py-3 px-6 text-left whitespace-nowrap hover:bg-gray-100"
-                                            >
-                                                <span className="font-medium">
-                                                    {emp.firstName}
-                                                </span>
-                                            </td>
-                                            <td
-                                                onClick={() =>
-                                                    onChooseEnmployee(emp)
-                                                }
-                                                className="py-3 px-6 text-left hover:bg-gray-100"
-                                            >
-                                                {
-                                                    EmployeeJobTitleTranslation[
-                                                        emp.role as JobTitle
-                                                    ]
-                                                }
-                                            </td>
-                                            <td className="py-3 px-6 text-center">
-                                                {emp.phone}
-                                            </td>
-                                            <td className="py-3 px-6 text-center">
-                                                {emp.birthday}
-                                            </td>
-                                            <td className="py-3 px-6 text-center flex justify-center">
-                                                <DeleteIcon
-                                                    onClick={() => {
-                                                        emp.id &&
-                                                            openModal(emp.id);
-                                                    }}
-                                                    className="hover:scale-125 transition duration-150 ease-out"
-                                                    width={'32px'}
-                                                    height={'32px'}
-                                                />
-                                            </td>
-                                        </tr>
-                                    ))}
+                                            <span className="font-medium">
+                                                {emp.firstName}
+                                            </span>
+                                        </td>
+                                        <td
+                                            onClick={() =>
+                                                onChooseEnmployee(emp)
+                                            }
+                                            className="py-3 px-6 text-left hover:bg-gray-100"
+                                        >
+                                            {
+                                                EmployeeJobTitleTranslation[
+                                                    emp.role as JobTitle
+                                                ]
+                                            }
+                                        </td>
+                                        <td className="py-3 px-6 text-center">
+                                            {emp.phone}
+                                        </td>
+                                        <td className="py-3 px-6 text-center">
+                                            {emp.birthday}
+                                        </td>
+                                        <td className="py-3 px-6 text-center flex justify-center">
+                                            <DeleteIcon
+                                                onClick={() => {
+                                                    emp.id && openModal(emp.id);
+                                                }}
+                                                className="hover:scale-125 transition duration-150 ease-out"
+                                                width={'32px'}
+                                                height={'32px'}
+                                            />
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>
