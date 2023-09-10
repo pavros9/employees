@@ -37,7 +37,7 @@ export const EmployeeFilterSelector = memo(
                 <Select
                     className="min-w-[300px]"
                     placeholder="Должность"
-                    value={typeOptions[0].value}
+                    value={type}
                     options={typeOptions}
                     onChange={onChangeType}
                 />
