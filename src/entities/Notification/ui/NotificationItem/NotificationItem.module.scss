@@ -1,11 +1,19 @@
-.access {
-    background: green;
+.Notification {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    border-radius: 12px;
+    background: #fff;
+    min-width: 300px;
+    display: flex;
+    align-items: center;
+    padding: 20px 35px 20px 25px;
+    box-shadow: 0 6px 20px -5px rgb(0 0 0 / 10%);
+    transform: translateX(calc(100% + 30px));
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
 }
 
-.cancel {
-    background: rgb(161 216 244);
-}
-
-.error {
-    background: rgb(255 54 31);
+.Notification.active {
+    transform: translateX(0%);
 }

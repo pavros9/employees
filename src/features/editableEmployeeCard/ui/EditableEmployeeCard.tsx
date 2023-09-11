@@ -25,10 +25,10 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import ru from 'date-fns/locale/ru';
 import { getEmployeeForm } from '../model/selectors/getEmployeeForm';
 import { NotificationType } from 'entities/Notification';
-import { showNotificationWithTimeout } from 'entities/Notification/lib/showNotificationWithTimeout';
 import { validateEmployeeCard } from '../model/lib/validateEmployeeCard';
 import { getValidateErrors } from '../model/selectors/getValidateErrors';
 import { ValidateEmployeeCardError } from '../model/const/const';
+import { showNotification } from 'entities/Notification/model/services/showNotification';
 registerLocale('ru', ru);
 
 const RoleSelectOptions = [
@@ -137,19 +137,21 @@ export const EditableEmployeeCard = () => {
         if (errors.payload?.length === 0) {
             if (id) {
                 dispatch(updateEmployee()).then(() => {
-                    showNotificationWithTimeout(
-                        dispatch,
-                        NotificationType.ACCESS,
-                        'Обновлен работник',
+                    dispatch(
+                        showNotification({
+                            message: 'Обновлен работник',
+                            type: NotificationType.ACCESS,
+                        }),
                     );
                     dispatch(employeeCardActions.closeEditingForm());
                 });
             } else {
                 dispatch(addEmployee()).then(() => {
-                    showNotificationWithTimeout(
-                        dispatch,
-                        NotificationType.ACCESS,
-                        'Добавлен работник',
+                    dispatch(
+                        showNotification({
+                            message: 'Добавлен работник',
+                            type: NotificationType.ACCESS,
+                        }),
                     );
                     dispatch(employeeCardActions.initEmployee());
                 });
@@ -171,10 +173,11 @@ export const EditableEmployeeCard = () => {
     ) => {
         e.preventDefault();
         dispatch(employeeCardActions.cancelEditing());
-        showNotificationWithTimeout(
-            dispatch,
-            NotificationType.CANCEL,
-            'Отмена изменений',
+        dispatch(
+            showNotification({
+                message: 'Отмена изменений',
+                type: NotificationType.CANCEL,
+            }),
         );
     };
 

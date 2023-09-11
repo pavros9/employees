@@ -1,21 +1,34 @@
-.wrapper {
-    width:100%;
-}
 
-.wrapper h3 {
+.progress h3 {
     color:rgb(100 100 100 / 90%);
 }
 
-.wrapper .bar {
-    width: 0%;
-    height: 5px;
-    background: linear-gradient(to right,rgb(51 253 93),rgb(71 185 236),rgb(42 147 245),rgb(41 168 222),rgb(120 56 179),rgb(234 34 70));
-    border-radius: 12px;
-    animation: loading 1s ease-in-out forwards;
+.progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+  
+}
+
+.progress::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #2770ff;
 }
   
-@keyframes loading {
-    to {
-        width:100%;
+.progress.active::before {
+    animation: progress 2.5s linear forwards;
+}
+
+  
+@keyframes progress {
+    100% {
+        right: 100%;
     }
 }

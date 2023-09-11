@@ -4,6 +4,7 @@ import { Notification } from '../types/types';
 
 const initialState: NotificationSchema = {
     items: [],
+    time: 3000,
 };
 
 export const notificationSlice = createSlice({

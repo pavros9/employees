@@ -1,5 +1,4 @@
-import { NotificationType } from 'entities/Notification';
-import { showNotificationWithTimeout } from 'entities/Notification/lib/showNotificationWithTimeout';
+import { NotificationType, showNotification } from 'entities/Notification';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Modal } from 'shared/ui/Modal/Modal';
 import { deleteEmployeeById } from '../model/services/deleteEmployee';
@@ -18,20 +17,23 @@ export const DeleteEmployee = (props: DeleteEmployeeProps) => {
         selectedEmployee &&
             dispatch(deleteEmployeeById(String(selectedEmployee))).then(() => {
                 closeModal(false);
-                showNotificationWithTimeout(
-                    dispatch,
-                    NotificationType.ACCESS,
-                    'Работник удален',
+                dispatch(
+                    showNotification({
+                        message: 'Работник удален',
+                        type: NotificationType.ACCESS,
+                    }),
                 );
             });
     };
 
     const onCancel = () => {
         closeModal(false);
-        showNotificationWithTimeout(
-            dispatch,
-            NotificationType.CANCEL,
-            'Отмена удаления',
+
+        dispatch(
+            showNotification({
+                message: 'Отмена удаления',
+                type: NotificationType.CANCEL,
+            }),
         );
     };
 
