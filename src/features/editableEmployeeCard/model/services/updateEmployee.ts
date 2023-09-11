@@ -3,6 +3,7 @@ import { Employee } from 'entities/Employee';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider';
+import { getEmployeeForm } from '../selectors/getEmployeeForm';
 
 export const updateEmployee = createAsyncThunk<
     Employee,
@@ -10,12 +11,12 @@ export const updateEmployee = createAsyncThunk<
     ThunkConfig<string>
 >('updateEmployee', async (_, thunkApi) => {
     const { extra, rejectWithValue, getState } = thunkApi;
-    const employeeData = getEmployeeData(getState());
+    const employeeForm = getEmployeeForm(getState());
 
     try {
         const response = await extra.api.put<Employee>(
-            `/api/employees/${employeeData?.id}`,
-            employeeData,
+            `/api/employees/${employeeForm?.id}`,
+            employeeForm,
         );
 
         if (!response.data) {

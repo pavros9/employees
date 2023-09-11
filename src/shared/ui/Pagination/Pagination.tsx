@@ -53,7 +53,15 @@ export const Pagination = (props: PaginationProps) => {
                 <button
                     onClick={onPrevious}
                     disabled={currentPage === 1}
-                    className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    className={classNames(
+                        'relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700',
+                        {},
+                        [
+                            currentPage === 1
+                                ? 'bg-slate-200'
+                                : 'hover:bg-gray-50 cursor-pointer',
+                        ],
+                    )}
                 >
                     <Arrow
                         transform="rotate(180)"
@@ -64,7 +72,15 @@ export const Pagination = (props: PaginationProps) => {
                 <button
                     onClick={onNext}
                     disabled={currentPage === lastPage}
-                    className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    className={classNames(
+                        'relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700',
+                        {},
+                        [
+                            currentPage === lastPage
+                                ? 'bg-slate-200'
+                                : 'hover:bg-gray-50 cursor-pointer',
+                        ],
+                    )}
                 >
                     <Arrow width={'30px'} height={'30px'} />
                 </button>
@@ -78,7 +94,15 @@ export const Pagination = (props: PaginationProps) => {
                         <button
                             disabled={currentPage === 1}
                             onClick={onPrevious}
-                            className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                            className={classNames(
+                                'relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300  focus:z-20 focus:outline-offset-0',
+                                {},
+                                [
+                                    currentPage === 1
+                                        ? 'bg-slate-200'
+                                        : 'hover:bg-gray-50 cursor-pointer',
+                                ],
+                            )}
                         >
                             <span className="sr-only">Предыдущая</span>
                             <Arrow
@@ -124,7 +148,13 @@ export const Pagination = (props: PaginationProps) => {
                             onClick={onNext}
                             disabled={currentPage === lastPage}
                             className={classNames(
-                                'relative cursor-pointer inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0',
+                                'relative  inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0',
+                                {},
+                                [
+                                    currentPage === lastPage
+                                        ? 'bg-slate-200'
+                                        : 'hover:bg-gray-50 cursor-pointer',
+                                ],
                             )}
                         >
                             <span className="sr-only">Next</span>

@@ -23,9 +23,11 @@ export const EmployeesList = (props: EmployeesListProps) => {
                 <div className="w-full lg:w-5/6">
                     <div className="bg-white shadow-md rounded my-6">
                         <table className="min-w-max w-full table-auto">
-                            <thead>
-                                <tr className="bg-gray-200 text-gray-600  uppercase text-sm leading-normal">
-                                    <th className="py-3 px-6 text-left">Имя</th>
+                            <thead className=" ">
+                                <tr className="bg-gray-200 text-gray-600  uppercase text-sm leading-normal hidden sm:table-row">
+                                    <th className="py-3 px-6 text-left ">
+                                        Имя
+                                    </th>
                                     <th className="py-3 px-6 text-left">
                                         Роль
                                     </th>
@@ -44,7 +46,7 @@ export const EmployeesList = (props: EmployeesListProps) => {
                                 {employees.map((emp: Employee) => (
                                     <tr
                                         key={emp.id}
-                                        className="border-b cursor-pointer border-gray-200 "
+                                        className="border-b cursor-pointer border-gray-200 flex flex-col sm:table-row"
                                     >
                                         <td
                                             onClick={() =>
@@ -52,7 +54,10 @@ export const EmployeesList = (props: EmployeesListProps) => {
                                             }
                                             className="py-3 px-6 text-left whitespace-nowrap hover:bg-gray-100"
                                         >
-                                            <span className="font-medium">
+                                            <span className="sm:hidden mr-3 font-bold">
+                                                Имя:
+                                            </span>
+                                            <span className="font-normal">
                                                 {emp.firstName}
                                             </span>
                                         </td>
@@ -62,19 +67,28 @@ export const EmployeesList = (props: EmployeesListProps) => {
                                             }
                                             className="py-3 px-6 text-left hover:bg-gray-100"
                                         >
+                                            <span className="sm:hidden mr-3 font-bold">
+                                                Роль:
+                                            </span>
                                             {
                                                 EmployeeJobTitleTranslation[
                                                     emp.role as JobTitle
                                                 ]
                                             }
                                         </td>
-                                        <td className="py-3 px-6 text-center">
+                                        <td className="py-3 px-6 sm:text-center">
+                                            <span className="sm:hidden mr-3 font-bold">
+                                                Телефон:
+                                            </span>
                                             {emp.phone}
                                         </td>
-                                        <td className="py-3 px-6 text-center">
+                                        <td className="py-3 px-6 sm:text-center">
+                                            <span className="sm:hidden mr-3 font-bold">
+                                                Дата рождения:
+                                            </span>
                                             {emp.birthday}
                                         </td>
-                                        <td className="py-3 px-6 text-center flex justify-center">
+                                        <td className="py-3 px-6 sm:text-center sm:flex sm:justify-center">
                                             <DeleteIcon
                                                 onClick={() => {
                                                     emp.id && openModal(emp.id);

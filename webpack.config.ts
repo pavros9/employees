@@ -14,7 +14,7 @@ export default (env: BuildEnv): webpack.Configuration => {
     const mode = env.mode || 'development';
     const PORT = env.port || 3000;
     const analyze = env.analyze || false;
-    const apiUrl = env.apiUrl || 'http://localhost:3000/';
+    const apiUrl = env.apiUrl || 'http://10.35.101.10:3000/';
 
     const isDev = mode === 'development';
 

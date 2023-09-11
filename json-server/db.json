@@ -1,130 +1,112 @@
 {
-    "employees": [
-        {
-            "id": 1,
-            "firstName": "Илья",
-            "lastName": "Емельянов",
-            "isArchive": false,
-            "role": "driver",
-            "phone": "+7 (883) 508-3269",
-            "birthday": "12.02.1982"
-        },
-        {
-            "id": 2,
-            "firstName": "Александр",
-            "lastName": "Ларионов",
-            "isArchive": true,
-            "role": "waiter",
-            "phone": "+7 (823) 440-3602",
-            "birthday": "26.01.1986"
-        },
-        {
-            "id": 4,
-            "firstName": "Олимпиада",
-            "lastName": "Макарова",
-            "isArchive": true,
-            "role": "waiter",
-            "phone": "+7 (945) 447-2286",
-            "birthday": "06.01.1987"
-        },
-        {
-            "id": 5,
-            "firstName": "Алла",
-            "lastName": "Котова",
-            "isArchive": false,
-            "role": "cook",
-            "phone": "+7 (948) 523-2964",
-            "birthday": "26.01.1982"
-        },
-        {
-            "id": 6,
-            "firstName": "Кира",
-            "lastName": "Колесникова",
-            "isArchive": true,
-            "role": "cook",
-            "phone": "+7 (929) 592-3637",
-            "birthday": "25.02.1972"
-        },
-        {
-            "id": 7,
-            "firstName": "Александр",
-            "lastName": "Третьяков",
-            "isArchive": false,
-            "role": "driver",
-            "phone": "+7 (872) 568-2916",
-            "birthday": "31.05.1979"
-        },
-        {
-            "id": 8,
-            "firstName": "Пелагея",
-            "lastName": "Морозова",
-            "isArchive": false,
-            "role": "driver",
-            "phone": "+7 (977) 521-3479",
-            "birthday": "11.09.1981"
-        },
-        {
-            "id": 10,
-            "firstName": "Владлен",
-            "lastName": "Тетерин",
-            "isArchive": true,
-            "role": "driver",
-            "phone": "+7 (808) 592-2480",
-            "birthday": "20.06.1978"
-        },
-        {
-            "id": 11,
-            "firstName": "Валерий",
-            "lastName": "Пестов",
-            "isArchive": false,
-            "role": "cook",
-            "phone": "+7 (899) 403-2387",
-            "birthday": "20.01.1987"
-        },
-        {
-            "id": 12,
-            "firstName": "Даниил",
-            "lastName": "Кузнецов",
-            "isArchive": true,
-            "role": "driver",
-            "phone": "+7 (933) 582-2673",
-            "birthday": "25.05.1987"
-        },
-        {
-            "id": 13,
-            "firstName": "Фёдор",
-            "lastName": "Веселов",
-            "isArchive": true,
-            "role": "waiter",
-            "phone": "+7 (951) 517-3787",
-            "birthday": "16.12.1972"
-        },
-        {
-            "id": 14,
-            "firstName": "Пантелеймон",
-            "lastName": "Ефимов",
-            "isArchive": true,
-            "role": "cook",
-            "phone": "+7 (807) 492-3627",
-            "birthday": "17.04.1986"
-        },
-        {
-            "id": 15,
-            "firstName": "Иванна",
-            "lastName": "Калашникова",
-            "isArchive": true,
-            "role": "waiter",
-            "phone": "+7 (927) 488-2568",
-            "birthday": "24.03.1982"
-        },
-        {
-            "id": 16,
-            "firstName": "Прасковья",
-            "lastName": "Кондратьева",
-            "isArchive": true,
-            "role": "driver",
-            "phone": "+7 (875) 517-3873",
-            "birthday": "07.06.1983"
-        }
-    ]
+  "employees": [
+    {
+      "id": 1,
+      "firstName": "Илья",
+      "lastName": "Емельянов",
+      "isArchive": false,
+      "role": "driver",
+      "phone": "+7 (883) 508-3269",
+      "birthday": "12.02.1982"
+    },
+    {
+      "id": 2,
+      "firstName": "Александр",
+      "lastName": "Ларионов",
+      "isArchive": true,
+      "role": "waiter",
+      "phone": "+7 (823) 440-3602",
+      "birthday": "26.01.1986"
+    },
+    {
+      "id": 4,
+      "firstName": "Олимпиада",
+      "lastName": "Макарова",
+      "isArchive": true,
+      "role": "waiter",
+      "phone": "+7 (945) 447-2286",
+      "birthday": "06.01.1987"
+    },
+    {
+      "id": 6,
+      "firstName": "Кира",
+      "lastName": "Колесникова",
+      "isArchive": true,
+      "role": "cook",
+      "phone": "+7 (929) 592-3637",
+      "birthday": "25.02.1972"
+    },
+    {
+      "id": 7,
+      "firstName": "Александр",
+      "lastName": "Третьяков",
+      "isArchive": false,
+      "role": "driver",
+      "phone": "+7 (872) 568-2916",
+      "birthday": "31.05.1979"
+    },
+    {
+      "id": 8,
+      "firstName": "Светлана ",
+      "lastName": "Морозова",
+      "isArchive": false,
+      "role": "driver",
+      "phone": "+7 (977) 521-3479",
+      "birthday": "11.09.1981"
+    },
+    {
+      "id": 10,
+      "firstName": "Владлен",
+      "lastName": "Тетерин",
+      "isArchive": true,
+      "role": "driver",
+      "phone": "+7 (808) 592-2480",
+      "birthday": "20.06.1978"
+    },
+    {
+      "id": 11,
+      "firstName": "Мясо",
+      "lastName": "Пестов",
+      "isArchive": false,
+      "role": "cook",
+      "phone": "+7 (899) 403-2387",
+      "birthday": "20.01.1987"
+    },
+    {
+      "id": 13,
+      "firstName": "Фёдор",
+      "lastName": "Веселов",
+      "isArchive": true,
+      "role": "waiter",
+      "phone": "+7 (951) 517-3787",
+      "birthday": "16.12.1972"
+    },
+    {
+      "id": 14,
+      "firstName": "Пантелеймон",
+      "lastName": "Ефимов",
+      "isArchive": true,
+      "role": "cook",
+      "phone": "+7 (807) 492-3627",
+      "birthday": "17.04.1986"
+    },
+    {
+      "id": 15,
+      "firstName": "Иванна",
+      "lastName": "Калашникова",
+      "isArchive": true,
+      "role": "waiter",
+      "phone": "+7 (927) 488-2568",
+      "birthday": "24.03.1982"
+    },
+    {
+      "id": 16,
+      "firstName": "Прасковья",
+      "lastName": "Кондратьева",
+      "isArchive": true,
+      "role": "driver",
+      "phone": "+7 (875) 517-3873",
+      "birthday": "07.06.1983"
+    }
+  ]
 }

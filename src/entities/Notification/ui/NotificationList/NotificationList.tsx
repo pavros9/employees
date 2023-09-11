@@ -11,7 +11,11 @@ interface NotificationListProps {
 export const NotificationList = (props: NotificationListProps) => {
     const { items, position = 'right' } = props;
     return (
-        <div className={classNames('fixed top-[80px]', {}, [cls[position]])}>
+        <div
+            className={classNames('fixed top-[20px] sm:top-[80px]', {}, [
+                cls[position],
+            ])}
+        >
             {items.map((item, index) => (
                 <NotificationItem
                     message={item.message}

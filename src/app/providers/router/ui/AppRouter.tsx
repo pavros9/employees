@@ -18,7 +18,7 @@ export const AppRouter = memo(() => {
                     <Route
                         path={path}
                         element={
-                            <div className="page-wrapper">
+                            <div className="page-wrapper px-[20px] mb-7">
                                 <NotificationList items={notifications} />
                                 {element}
                             </div>

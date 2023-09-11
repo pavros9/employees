@@ -1,3 +1,11 @@
 .right {
-    right: 30px;
+    right: 0;
+    
 }
+
+@media (width >= 640px) { 
+    .right {
+        right: 20px;
+    }    
+}
+

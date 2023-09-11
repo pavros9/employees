@@ -32,11 +32,11 @@ export const MainPageFilter = () => {
 
     return (
         <>
-            <div className="px-[120px]">
+            <div className="sm:px-[120px]">
                 <div className="mb-3">Должность</div>
 
                 <EmployeeFilterSelector
-                    className="max-w-[300px] mb-5"
+                    className="max-w-[300px] mb-7"
                     type={type}
                     onChangeType={onChangeType}
                 />

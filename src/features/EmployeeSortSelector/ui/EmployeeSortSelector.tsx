@@ -47,7 +47,7 @@ export const EmployeeSortSelector = memo((props: EmployeeSortSelectorProps) => {
         <div className={classNames('', {}, [className])}>
             <Select
                 options={sortFieldOptions}
-                className="mb-3"
+                className="mb-7"
                 label={'Сортировать ПО'}
                 value={sort}
                 onChange={onChangeSort}

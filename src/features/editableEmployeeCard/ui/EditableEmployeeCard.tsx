@@ -190,7 +190,7 @@ export const EditableEmployeeCard = () => {
             {id && (
                 <button
                     onClick={backHistory}
-                    className="bg-[#2d91e9] text-white px-5 py-3 rounded-lg"
+                    className="bg-[#2d91e9] text-white px-5 py-3 rounded-lg mb-5"
                 >
                     Назад
                 </button>
