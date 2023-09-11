@@ -33,7 +33,7 @@ export const EmployeeSortSelector = memo((props: EmployeeSortSelectorProps) => {
         () => [
             {
                 value: EmployeeSortField.CREATED,
-                content: 'дате создания',
+                content: 'дате рождения',
             },
             {
                 value: EmployeeSortField.NAME,
