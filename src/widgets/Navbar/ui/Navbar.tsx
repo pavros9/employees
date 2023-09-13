@@ -83,18 +83,6 @@ export const Navbar = () => {
                                 >
                                     Форма
                                 </NavLink>
-                                <NavLink
-                                    to="/settings"
-                                    className={({ isActive }) =>
-                                        `rounded-md px-3 py-2 text-sm font-medium ${
-                                            isActive
-                                                ? 'text-orange-400 bg-gray-900'
-                                                : 'text-white'
-                                        }`
-                                    }
-                                >
-                                    Настройка
-                                </NavLink>
                             </div>
                         </div>
                     </div>
@@ -133,18 +121,6 @@ export const Navbar = () => {
                         }
                     >
                         Форма
-                    </NavLink>
-                    <NavLink
-                        to="/settings"
-                        className={({ isActive }) =>
-                            `block rounded-md px-3 py-2 text-sm font-medium ${
-                                isActive
-                                    ? 'text-orange-400 bg-gray-900'
-                                    : 'text-white'
-                            }`
-                        }
-                    >
-                        Настройка
                     </NavLink>
                 </div>
             </div>
