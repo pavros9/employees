@@ -9,7 +9,7 @@
         "lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
         "prettier": "npx prettier --write **/*.{ts,tsx,json}",
         "prepare": "husky install",
-        "server": "json-server --watch json-server/db.json --port 8086 --routes json-server/routes.json"
+        "server": "json-server --watch json-server/db.json --port 443 --host json-server-lky8.onrender.com --routes json-server/routes.json"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.9.5",
