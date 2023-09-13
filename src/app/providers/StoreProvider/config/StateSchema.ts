@@ -8,7 +8,7 @@ export interface StateSchema {
     employee: EmployeeSchema;
     editableEmployeeCard: EmployeeCardSchema;
     notification: NotificationSchema;
-    mainpage: MainPageSchema;
+    mainPage: MainPageSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

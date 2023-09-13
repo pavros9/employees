@@ -11,7 +11,7 @@ export function createReduxStore(initialState?: StateSchema) {
         employee: employeeReducer,
         editableEmployeeCard: employeeCardReducer,
         notification: notificationReducer,
-        mainpage: mainPageReducer,
+        mainPage: mainPageReducer,
     };
 
     const extraArg: ThunkExtraArg = {

@@ -1,14 +1,15 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    text: string;
+    text?: string;
     icon?: string;
     className?: string;
+    children?: ReactNode;
 }
 
 export const Button = (props: ButtonProps) => {
-    const { text, icon, className, ...otherProps } = props;
+    const { text, children, icon, className, ...otherProps } = props;
     return (
         <button
             className={classNames('flex items-center', {}, [className])}
@@ -16,6 +17,7 @@ export const Button = (props: ButtonProps) => {
         >
             {text}
             {icon && <img src={icon} alt={text} />}
+            {children}
         </button>
     );
 };
