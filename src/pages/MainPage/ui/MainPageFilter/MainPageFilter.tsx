@@ -1,10 +1,10 @@
 import { EmployeeJobTitle, EmployeeSortField } from 'entities/Employee';
 import { EmployeeFilterSelector } from 'features/EmployeeFilterSelector';
 import { EmployeeSortSelector } from 'features/EmployeeSortSelector';
-import { getOrder } from '../../model/selectors/getOrder';
-import { getSort } from '../../model/selectors/getSort';
-import { getSelectedEmployees } from 'pages/MainPage/model/selectors/getSelectedEmployees';
-import { getTypeEmployeeSelector } from 'pages/MainPage/model/selectors/getTypeEmployee';
+import { getOrder } from '../../model/selectors/getOrder/getOrder';
+import { getSort } from '../../model/selectors/getSort/getSort';
+import { getSelectedEmployees } from 'pages/MainPage/model/selectors/getSelectedEmployees/getSelectedEmployees';
+import { getTypeEmployeeSelector } from 'pages/MainPage/model/selectors/getTypeEmployee/getTypeEmployee';
 import { mainPageActions } from 'pages/MainPage/model/slice/mainPage';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';

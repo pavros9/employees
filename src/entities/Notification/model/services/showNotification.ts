@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider';
-import { getTime } from '../selectors/getTime';
+import { getTime } from '../selectors/getTime/getTime';
 import { notificationActions } from '../slice/notificationSlice';
 import { Notification } from '../types/types';
 

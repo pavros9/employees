@@ -6,7 +6,7 @@ import {
     fetchEmployees,
 } from 'entities/Employee';
 import { deleteEmployeeById } from 'features/deleteEmployee/model/services/deleteEmployee';
-import { sortEmployeesByDate } from 'shared/lib/sortEmployeesByDate/sortEmployeesByDate';
+import { sortEmployyesBySort } from 'shared/lib/sortEmployeesBySort/sortEmployeesBySort';
 import { SortOrder } from 'shared/types/sort';
 import { MainPageSchema } from '../types/MainPageSchema';
 
@@ -15,7 +15,6 @@ const initialState: MainPageSchema = {
         selectedItems: [],
     },
     isLoading: false,
-
     order: 'desc',
     sort: EmployeeSortField.CREATED,
     type: EmployeeJobTitle.ALL,
@@ -37,7 +36,7 @@ export const mainPageSlice = createSlice({
 
             state.employees.selectedItems =
                 state.employees.selectedItems &&
-                sortEmployyes(
+                sortEmployyesBySort(
                     state.employees.selectedItems,
                     state.order,
                     state.sort,
@@ -49,7 +48,7 @@ export const mainPageSlice = createSlice({
 
             state.employees.selectedItems =
                 state.employees.selectedItems &&
-                sortEmployyes(
+                sortEmployyesBySort(
                     state.employees.selectedItems,
                     state.order,
                     state.sort,
@@ -61,7 +60,7 @@ export const mainPageSlice = createSlice({
 
             state.employees.selectedItems =
                 state.employees.selectedItems &&
-                sortEmployyes(
+                sortEmployyesBySort(
                     state.employees.selectedItems,
                     state.order,
                     state.sort,
@@ -71,7 +70,7 @@ export const mainPageSlice = createSlice({
         initEmployees: (state) => {
             state.employees.selectedItems =
                 state.employees.selectedItems &&
-                sortEmployyes(
+                sortEmployyesBySort(
                     state.employees.selectedItems,
                     state.order,
                     state.sort,
@@ -90,7 +89,7 @@ export const mainPageSlice = createSlice({
 
                     const sortEmployees =
                         state.employees.items &&
-                        sortEmployyes(
+                        sortEmployyesBySort(
                             [...state.employees.items],
                             state.order,
                             state.sort,
@@ -119,27 +118,3 @@ export const mainPageSlice = createSlice({
 
 export const { actions: mainPageActions } = mainPageSlice;
 export const { reducer: mainPageReducer } = mainPageSlice;
-
-const sortEmployyes = (
-    employees: Employee[],
-    order: SortOrder,
-    sort: EmployeeSortField,
-) => {
-    if (sort === EmployeeSortField.CREATED) {
-        return employees && sortEmployeesByDate(employees, order);
-    }
-
-    if (sort === EmployeeSortField.NAME) {
-        return employees.sort((a, b): number => {
-            if (a.firstName && b.firstName && order === 'asc') {
-                return a.firstName.localeCompare(b.firstName);
-            }
-
-            if (a.firstName && b.firstName && order === 'desc') {
-                return b.firstName.localeCompare(a.firstName);
-            } else {
-                return 1;
-            }
-        });
-    }
-};

@@ -20,5 +20,9 @@
             "module": "CommonJS"
         }
     },
-    "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+    "include": [
+        "./src/**/*.ts",
+        "./src/**/*.tsx",
+        "src/entities/Employee/model/selectors/getEmployees"
+    ]
 }

@@ -5,8 +5,8 @@ import {
 } from 'entities/Employee';
 import { EmployeesList } from 'entities/Employee/ui/EmployeesList/EmployeesList';
 import { DeleteEmployee } from 'features/deleteEmployee';
-import { getSelectedEmployees } from 'pages/MainPage/model/selectors/getSelectedEmployees';
-import { getTypeEmployeeSelector } from 'pages/MainPage/model/selectors/getTypeEmployee';
+import { getSelectedEmployees } from 'pages/MainPage/model/selectors/getSelectedEmployees/getSelectedEmployees';
+import { getTypeEmployeeSelector } from 'pages/MainPage/model/selectors/getTypeEmployee/getTypeEmployee';
 import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';

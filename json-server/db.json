@@ -32,7 +32,7 @@
             "firstName": "Кира",
             "lastName": "Колесникова",
             "isArchive": true,
-            "role": "cook",
+            "role": "driver",
             "phone": "+7 (929) 592-3637",
             "birthday": "25.02.1972"
         },
@@ -107,6 +107,15 @@
             "role": "driver",
             "phone": "+7 (875) 517-3873",
             "birthday": "07.06.1983"
+        },
+        {
+            "birthday": "27.09.2023",
+            "firstName": "Трабодур",
+            "lastName": "Корешов",
+            "phone": "+7(934) 343 4323",
+            "role": "cook",
+            "isArchive": false,
+            "id": 17
         }
     ]
 }

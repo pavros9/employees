@@ -2,7 +2,7 @@ import { Employee } from 'entities/Employee';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider';
-import { getEmployeeForm } from '../selectors/getEmployeeForm';
+import { getEmployeeForm } from '../selectors/getEmployeeForm/getEmployeeForm';
 
 export const addEmployee = createAsyncThunk<
     Employee,
