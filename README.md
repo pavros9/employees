@@ -28,6 +28,15 @@ npm run start - запуск frontend проекта на webpack dev server
 
 ---
 
+## CI pipeline и pre commit хуки
+
+Конфигурация github actions находится в /.github/workflows.
+В ci прогоняются все тесты, сборка проекта и линтинг.
+
+В прекоммит хуках проверяем проект линтерами, конфиг в /.husky
+
+---
+
 ## Стилизация
 
 Использован TailwindCss с добавлением своих стилей в scss.
